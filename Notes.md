@@ -166,3 +166,344 @@ console.log(array);             // [ 0 , 100 , 1000 , 11, 22 , 36749, 4738, 6 , 
 console.log(spreaded_array);    // [ 0 , 100 , 1000 , 11, 22 , 36749, 4738, 6 , 7 , 666 , 69 , 96, 99 ]
 
 ```
+
+# Working with Components, Props and JSX
+
+## Rendering the root component and Strict mode:
+
+- To render a root component in react, we use two importatnt packages as below:
+
+  - react
+  - react-dom
+
+- In the src folder, index.js file is the entry point of the react application and root component should be rendered there.
+- The react web-packages will look for the `index.js` file to render application.
+- In index.js file the whole application can be rendred as below:
+
+```
+import React from "react";
+import ReactDOM from "react-dom/client";
+
+function App() {
+  return <h1>Hello VIJAY!</h1>;
+}
+
+const root = ReactDOM.createRoot(document.getElementById("root")); // The div element is obtained from index.html file in public folder
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
+
+```
+
+- strict mode is React's component which allows the component rendreing the two times for easy debuging in development time.
+
+* It is useful to enable stric mode during development by covering the root component within strictmode component as below:
+
+```
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+
+```
+
+## Styling React components
+
+- React allow mutiple ways to style the application like inline css, external css, tailwind css and etc.
+
+### Inline CSS :
+
+- Normally, we can apply any styles in any element using `style` attribute. Likewise JSX also allows style attribute on elements in a different way.
+
+- We can apply the styles on elemnts by assigning style attribute to the element. And the value for style attribute to be
+  format `{{ }}`.
+
+- Because JSX needed to be entered into javascript mode through `{ }` notation and then inside the javascript mode , multiple styles can be applied using another `{}` notation as `{{ ... }}`
+
+- The styles we apply inside javascript block should be camelCased as these styles are belongs to javascript not CSS.
+
+* Example styling :
+
+```
+function Header() {
+  return (
+    <h1 style={{ color: "red", fontSize: "48px", textTransform: "uppercase" }}>  // Inline styling in JSX
+      {" "}
+      Vijay's Fast Pizzas.Co{" "}
+    </h1>
+  );
+}
+```
+
+- We can also define the styles in any variable and use it as below:
+
+```
+function Header() {
+  const headerTextStyle = {
+    color: "red",
+    fontSize: "48px",
+    textTransform: "uppercase",
+  };
+  return <h1 style={headerTextStyle}> Vijay's Fast Pizzas.Co </h1>;
+}
+
+```
+
+### External CSS:
+
+- It is usual way of adding styles to website. External css file should be imported in the component file where we want to use the css styles.
+
+* When we use external CSS , we should keep an important note in mind that the class keyword will not apply styles on elements in JSX. Instead the class keyword, we should use `className` in JSX to apply the desired styles we used in external file.
+
+## Passing and receiving Props:
+
+- Props are used to pass data between conponents line parent to child components.
+
+* It is a simple two step process.
+
+* First , we need to set the props as attributes in the child component element as below:
+
+```
+function Menu() {
+  return (
+    <menu className="menu">   // Parent component
+      <h2>Our Menu</h2>
+      <Pizza                  // Child component
+
+        name="Pizza Spinaci"
+        ingredients="Tomato, mozarella, spinach, and ricotta cheese"
+        photoName="pizzas/spinaci.jpg"
+        price="100.00"
+                                                            // Passing data as attributes
+      />
+    </menu>
+  );
+}
+```
+
+- Secondly, the properties need to be rrceived in the child component as arguments. React automatically converts the attributs from the parent as Object in the child component and we can access the object in the child component using javascript bloks.
+
+```
+function Menu() {
+  return (
+    <menu className="menu">
+      <h2>Our Menu</h2>
+      <Pizza
+        name="Pizza Spinaci"
+        ingredients="Tomato, mozarella, spinach, and ricotta cheese"
+        photoName="pizzas/spinaci.jpg"
+        price="100.00"
+      />
+    </menu>
+  );
+}
+
+function Pizza(props) {                     // Receving props in child component
+  console.log("props", props);              // {
+                                                name="Pizza Spinaci"
+                                                ingredients="Tomato, mozarella, spinach, and ricotta cheese"
+                                                photoName="pizzas/spinaci.jpg"
+                                                price="100.00"
+                                                }
+  return (
+    <div>
+      <img src={props.photoName} alt={props.name} />            // Using as js blocks in child
+      <h3>{props.name}</h3>
+      <p>{props.ingredients}</p>
+    </div>
+  );
+}
+
+```
+
+### NOTE:
+
+- If we want to pass a value as a props from parent , we just want to use them inside javascript block.
+
+## props immutability
+
+- As props are just javascript objects,we cannot mutate them in the child component. If we want to change some props in child , then we require the help of state.
+
+- The reason for is that if the any oject is mutated then original object is also gets updated. So, In react the parent component props will also be get updated. It will cause side effects in react components. So, the props are immutable.
+
+## One-way data flow:
+
+- React Strictly follows one way data flow which means data can be passed from parent to children and not viceversa.
+
+- It helps developers to debug data flow as it is uni-directional.
+
+* In some cases, If data is necessary to pass childe from parent React provides another solution to achive that solution.
+
+## Rendering Lists:
+
+- Rendering list is creating dynamic components/ any JSX in view based on the array we have.
+
+* It is literally converting an array to view.
+
+* We should iterate over the array and do the stuff we want. Mostly we will use array.map method to render the list.
+
+* While doing this, we should consider that `key` attribute to be passed definitely which is unique value for each element in the array we render. Otherwise a warning message will be displayed in console.
+
+## Conditional Rendering with &&
+
+- Condiional rendering means rendering some piece of UI ( JSX / Component ) to the view based on some condiion.
+
+* using `&&` operator we can render the templates using shrot circuiting.
+
+* Consider an expression: a && b
+
+* If a is true value, then b is returned. Otherwise nothing will be returned as execution stops at first staement which is a (false) ,and does not see the second one which is b.
+
+* Other than boolean (true/false) , `&&` operator also works for truthy/ falsy values. It works same as true or false value.But while rendering something to view for falsy value other than false like 0, the value will be displayed in view. So , condition should be set according to that.
+
+## React fragments `<> </>`
+
+- React fragments are empty tags which allows to bind multiple elements in JSX.
+
+- Usually while returning JSX, React forces us to combile all the elements under one root element. But in some cases we need to return seperate elements without common root. Here, Fragement helps to acheive that. We can wrap those within fragments which is `<> </>` or `<React.Fragment></React.Fragment>`
+
+* Example:
+
+```
+function Menu() {
+  const pizzas = pizzaData;
+  // const pizzas = [];
+
+  return (
+    <menu className="menu">
+      <h2>Our Menu</h2>
+
+      {pizzas.length > 0 ? (
+        <>                                // React fragment
+          <p>
+            Authentic italian cusine.6 creative dishes to choose from. All from
+            our stone oven. all organic, all delicious.
+          </p>
+          <ul className="pizzas">
+            {pizzaData.map((pizza) => (
+              <Pizza pizzaObject={pizza} key={pizza.name} />
+            ))}
+          </ul>
+        </>                               // React fragment closing tag
+      ) : (
+        <p>
+          We're still working on our Menu. So, please come back after some time
+          :)
+        </p>
+      )}
+    </menu>
+  );
+}
+```
+
+- NOTE : In DOM , the wrapped elements such as <p>..</p> and <ul>..</ul> doesn't have any parent element when we use react fragments.
+
+## State in React
+
+- State is simply the memory of a component.
+
+- State is the data, a component can hold over time which is necessary untill the app's lifecycle.
+
+* A state can be the notification count, active tab information in nav bar , user text in a search bar , content of a shopping cart and etc.
+
+* All state in a component is changable because of user interactions. Like user can navigate to another tab and the active tab needs to be updated, user can change the text typed in search bar and so on.
+
+* The term `state` refers to the components state which is the collection of all single state variables in a component. And the term `Piece of state / state variable` refers to the individual state variable in a component.
+
+* The important thing in state is, When component state is get updated , react re-render the component. Which means whenever a piece of state is updated, User Interface of the component is also updated. When we change state , we change the User Interface.
+
+## Creating a State variable using `useState()`
+
+- `useState()` is a function provided bu react library to handle state varibles in a component.
+
+* We should import the useState() functon from react library to use it in component.
+
+* useState() function requires an argument. The argument should be the intial value of a state. It may of any type.
+
+* The useState() function returns an array with two elemnts.
+
+  - The first one is the initail value we passed as argument.
+  - The second one is the function which is used to update the state value.
+
+* As the useState() method returns an array, We can simply assign the value to the new array and destructue it with the desired variables to use them in our components as below:
+
+* For Example , If I want to create a state for variable step with initail value 1, I must do as below:
+
+```
+  const [step, setStep] = useState(1);
+
+```
+
+- We can update the step value by passing the value to update to the setStep function whereever we need to update and UI will change according to it.
+
+```
+  const [step, setStep] = useState(1);
+
+  function handleNext(){
+    setStep(step + 2);                           // Updating step state
+  }
+```
+
+### Importatnt things on State:
+
+- As `useState()` is a react hook, we cannot call it in any other functions / blocks . We should only define the useState() hook in the top of the Component.
+
+```
+
+function App(){
+
+const [ step , setStep ] = useState(1);            // It is correct
+.
+.
+.
+
+if(true){
+const [ step , setStep ] = useState(1);            // It is not possible;
+}
+
+function handleNext(){
+  ...
+const [ step , setStep ] = useState(1);            // It is not possible;
+}
+
+}
+```
+
+- We can only update the staet using function returned by the useState() function not manuallly.
+
+### Updating state based on Current State
+
+- Updating state using setter function is common and we can call that setter function with new value as argument and state get changed.
+
+- If the new value is based on the current value, then we need to pass an call back function as an argument instead of passing just the new value to setter function. The callback function is having the current value of the state as parameter and we can update that according to our requirment.
+
+- If the new state is not dependant on current state value, then no need of call back function method. We can simply pass the new value as argument to the setter function.
+
+```
+
+export default function App() {
+  const [step, setStep] = useState(1);
+  const [displaySteps, setDisplayStpes] = useState(true);
+
+  function handlePrevious() {
+    if (step > 1) {
+      // setStep(step - 1);                                  // Normal update
+      setStep((currentStepValue) => currentStepValue - 1);   // updating state based on current value(call back function method)
+    }
+  }
+
+  function handleNext() {
+    if (step < 3) {
+      // setStep(step + 1);
+      setStep((currentStepValue) => currentStepValue + 1);
+    }
+
+    .
+    .
+    .
+
+  }
+
+}
+```
