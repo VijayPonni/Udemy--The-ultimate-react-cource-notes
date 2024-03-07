@@ -580,3 +580,5 @@ function Form() {
 - Re-rendering while update : While State get updated, the component get re-rendered. Receving new props causes the component to re-render. Which means, whenever the parent component where the props are received is get updated the parent componet will re-render and the child components of that parent also re-renders then if any props are sent from parent to child then it will be updated with the re-render.
 
 - Usage : States are used to make the component interactive. Props are used by the paraent component to configure the child component
+
+## Section-7 Thinking in React
