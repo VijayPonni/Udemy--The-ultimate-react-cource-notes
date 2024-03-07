@@ -507,3 +507,76 @@ export default function App() {
 
 }
 ```
+
+## Controllled Elements
+
+- usually the elements like input field, select box and something else we mostly use in forms will maintain their own state(Value) in DOM. But, the values must be available together in our react application to use them. To achieve this, we use Controlled elements in react.
+
+### Steps to implement controlled elements:
+
+- Step 1: Creat state.
+- Step 2: Add value property to the element which we want to controland assign the value to the state variable we created in first step.
+- Step 3: Add onChange property to the same element and assign the event handler function with the setState function we created in first step. Set the value as `event.target.value` in setState method which is returned by the onChange event handler to synchronous with the value.
+
+```
+
+function Form() {
+
+  const [quantity, setQuantity] = useState(1);
+  const [description, setDescription] = useState("");     // Step 1
+
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    if (!description) return;
+
+    const newItem = {
+      id: new Date(),
+      description,
+      quantity,
+      packed:false
+    }
+
+    console.log("new item", newItem)
+
+    setQuantity(1);
+    setDescription("");
+
+  }
+
+
+  return (
+    <form className="add-form" onSubmit={ handleSubmit}>
+      <h3> What do you need for your 😍 trip ?</h3>
+      <select
+        value={quantity}
+        onChange={ (event)=> setQuantity( Number(event.target.value))}
+      >
+        {
+          Array.from({ length: 20 }, (_, i) => i + 1).map((num) =>
+            <option key={num} value={num} >{ num}</option>
+          )
+        }
+      </select>
+      <input
+      type="text"
+      placeholder="Enter Item..."
+       value={ description}                                               // Step 2
+       onChange={ (event)=> setDescription(event.target.value)}/>         // Step 3
+      <button>Add</button>
+    </form>
+  );
+}
+```
+
+## Difference between State and Props in React:
+
+- Data : States are internal data which means state data is owned by the component itself. In the otherhand Props are external data which means the Props data is owned by the parent component.
+
+- Like : States can be thought of component memory as it holds the component's data overtime across multiple rerenderings and Props can be thought of function parameters which carries the parent component data to children components.
+
+- Updating : States can be updated by the components itself on the other hand Props can not be changed in the receiving component ( read-only)
+
+- Re-rendering while update : While State get updated, the component get re-rendered. Receving new props causes the component to re-render. Which means, whenever the parent component where the props are received is get updated the parent componet will re-render and the child components of that parent also re-renders then if any props are sent from parent to child then it will be updated with the re-render.
+
+- Usage : States are used to make the component interactive. Props are used by the paraent component to configure the child component
