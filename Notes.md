@@ -704,3 +704,70 @@ function Child-2({ stateValue }){              // Receiving props from App
 ## Deriving State:
 
 <img src="Imgaes/deriving_state.png" >
+
+## The Children Prop
+
+- The children prop is the main and fundamental technique or method in react.
+
+- We usully use define the component and use that component in jSX as an element only with the closing tag not in usual opening and closing tag method.
+
+- But, the truth is react also allows the both methods which means instead of using only the closing tag to use the component we can use the opening and closing tag fot that component as below example.
+
+```
+
+function App(){
+  return (
+    <div>
+    <Button />                            // USUAL METHOD ( Closign tag )
+    <Button></Button>                     // CHILDREN PROP METHOD ( Opening and closign tag )
+    </div>
+  )
+}
+
+function Button(){                        // Component
+  return (
+    <Button>I am Button Component</Button>
+  )
+}
+```
+
+- The important thing should consider while using the second method is react allows the default `children` prop to that component and the children props value is the value in inbetween the opening and closign tag of the component.
+
+```
+function App(){
+  return (
+    <div>
+    <Button />                                                          // USUAL METHOD ( Closign tag )
+    <Button> HI I AM CHILDREN PROP VALUE </Button>                     // CHILDREN PROP METHOD ( Opening and closign tag )
+    </div>
+  )
+}
+
+function Button({ children }){                        // Component --> children props
+  return (
+    <Button>
+      I am Button Component.
+      <span> {children  } </span>                     // Using children props in JSX
+    </Button>
+  )
+}
+
+
+
+OUTPUT BUTTON WILL LOOK LIKE BELOW:
+
+
+------------------------------------------------------
+|                                                     |
+| I am Button Component. HI I AM CHILDREN PROP VALUE  |
+|                                                     |
+------------------------------------------------------
+```
+
+- So, Children prop is a default props provided by react which rendres the value between the opening and closing tag into components.
+
+<img src="Imgaes/children_prop_1.png" ><br>
+
+<img src="Imgaes/children_prop_2.png" ><br>
+
+<img src="Imgaes/children_prop_3.png" ><br>
