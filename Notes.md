@@ -582,3 +582,125 @@ function Form() {
 - Usage : States are used to make the component interactive. Props are used by the paraent component to configure the child component
 
 ## Section-7 Thinking in React
+
+### Fundamentals of State Management
+
+### What is State management?
+
+- State management is simply deciding When to create pieces of state, What types of states are necessary , Where to place each pieces of state and how data flow throughout the app.
+
+### Types of State:
+
+- In React each piece of state is only belongs to the two types as below:
+
+  - Local state.
+  - Global state.
+
+<img src="Imgaes/local_state_vs_global_state.png">
+
+### When and Where to use State ?
+
+<img src="Imgaes/when_and_where_to_use_state.png">
+
+### Lifting state up:
+
+- When we need to maintain state in common for two sibiling component , it should be maintained in first parent component of both the sibiling components.
+
+* Example:
+
+* Consider we have component structure as below:
+
+* App component has two children. One component has a button which simply updates a state to randpm numbers. But we need to display the number in another component which is child-2.
+
+```
+function App(){
+  return (
+    <div>
+    < Child-1/>
+    < Child-2 />
+    </div>
+  )
+}
+
+
+function Child-1(){
+
+  const [state1 , setState1 ] = useState();
+
+  function updatetState(){
+    setState1(Math.random())
+  }
+
+  return (
+    <div>
+  <button
+  onClick={updateState} > Click to update state1 in Child-2 Component </button>
+  </div>
+  )
+
+}
+
+function Child-2(){
+
+  return <h1> I am Child-2 and have to display the value from Child-1.</h1>
+}
+
+
+```
+
+- So we cannot pass the state to the Child-2 directly as it is not the children for Child-1. But we can achieve this by lifting up the state to the first parent compoent of both sibiling components. In this case it is App Component.
+
+- So, If we move the state to App, then we can pass the state as props to the Child-2 component and also the SetState function as props to the Child-1 property.
+
+```
+
+function App(){
+
+
+  const [state1 , setState1 ] = useState();        // Moved state to parent component
+
+  function updatetState(){
+    setState1(Math.random())
+  }
+
+
+  return (
+    <div>
+    < Child-1  onButtonClick={ updateState } />     // Pass the updateState function to Child-1 as params
+    < Child-2  stateValue={ state1 } />             // Pass the state1 state to Child-2 as params
+    </div>
+  )
+}
+
+
+function Child-1({ onButtonClick }){           // Receiving props from App
+
+  function handleButtonClick(){
+      onButtonClick()                           // Calling the function in App component
+  }
+
+  return (
+    <div>
+  <button
+  onClick={ handleButtonClick } > Click to update state1 in Child-2 Component </button>
+  </div>
+  )
+
+}
+
+function Child-2({ stateValue }){              // Receiving props from App
+
+  return <h1> I am Child-2 and have to display the value from Child-1. { stateValue }</h1>     // Using State from App
+}
+
+```
+
+### Examples:
+
+<img src="Imgaes/problem_sharing_state_with_sibiling_component.png">
+<img src="Imgaes/solution_lifting_state_up.png">
+<img src="Imgaes/child_to_parent-communication.png">
+
+## Deriving State:
+
+<img src="Imgaes/deriving_state.png" >
