@@ -704,3 +704,236 @@ function Child-2({ stateValue }){              // Receiving props from App
 ## Deriving State:
 
 <img src="Imgaes/deriving_state.png" >
+
+## The Children Prop
+
+- The children prop is the main and fundamental technique or method in react.
+
+- We usully use define the component and use that component in jSX as an element only with the closing tag not in usual opening and closing tag method.
+
+- But, the truth is react also allows the both methods which means instead of using only the closing tag to use the component we can use the opening and closing tag fot that component as below example.
+
+```
+
+function App(){
+  return (
+    <div>
+    <Button />                            // USUAL METHOD ( Closign tag )
+    <Button></Button>                     // CHILDREN PROP METHOD ( Opening and closign tag )
+    </div>
+  )
+}
+
+function Button(){                        // Component
+  return (
+    <Button>I am Button Component</Button>
+  )
+}
+```
+
+- The important thing should consider while using the second method is react allows the default `children` prop to that component and the children props value is the value in inbetween the opening and closign tag of the component.
+
+```
+function App(){
+  return (
+    <div>
+    <Button />                                                          // USUAL METHOD ( Closign tag )
+    <Button> HI I AM CHILDREN PROP VALUE </Button>                     // CHILDREN PROP METHOD ( Opening and closign tag )
+    </div>
+  )
+}
+
+function Button({ children }){                        // Component --> children props
+  return (
+    <Button>
+      I am Button Component.
+      <span> {children  } </span>                     // Using children props in JSX
+    </Button>
+  )
+}
+
+
+
+OUTPUT BUTTON WILL LOOK LIKE BELOW:
+
+
+------------------------------------------------------
+|                                                     |
+| I am Button Component. HI I AM CHILDREN PROP VALUE  |
+|                                                     |
+------------------------------------------------------
+```
+
+- So, Children prop is a default props provided by react which rendres the value between the opening and closing tag into components.
+
+<img src="Imgaes/children_prop_1.png" ><br>
+
+<img src="Imgaes/children_prop_2.png" ><br>
+
+<img src="Imgaes/children_prop_3.png" ><br><br><br>
+
+#####################################
+
+# Tanstack-react-query package:
+
+## Overview:
+
+- This tanstack-react-query is also known as 'react-query' which is helpful in fetching , caching , synchronising and updating server state in web-applications.
+
+## Installation:
+
+- Installation command :
+
+```
+npm i npm i @tanstack/react-query
+
+```
+
+- Install react-query devtools using below command:
+
+```
+npm i @tanstack/react-query-devtools
+
+```
+
+## provider setup:
+
+- First we should wrap the section where we should use react-query with `Provider`.
+- Mostly we will use the react-query for entire application.
+- So we can wrap the App component with ` QueryClientProvider` from tanstack-react-query library.
+
+* For that we should import `QueryClient` and `QueryClientProvider` from `@tanstack/react-query`.
+* We should wrap the App component seector between the `<QueryClientProvider> selector`.
+* `QueryClient` is the actual client we should create and should register with QueryClientProvider as a props. Then the whole application will be registered with the queryClient we created.
+
+### tanstack-react-query --> index.js
+
+```
+
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
+const queryClient = new QueryClient();             // we can pass the default value to the querClient inside parenthesis ().
+
+root.render(
+  <React.StrictMode>
+    <QueryClientProvider client={queryClient}>      {/*  Registering QueryClient with QueryClientprovider */}
+    <App />
+    </QueryClientProvider>
+  </React.StrictMode>
+);
+
+```
+
+## Basic Example:
+
+- With react-query, we can mainly do two basic things as below:
+
+  - 1.  `query` which means getting data from somewhere.
+  - 2.  `mutation` which means changing some type of data.
+
+* tanstack react query package provides two custom hooks to achiev the above mention actions. They are :
+
+  - 1.  useQuery()
+  - 2. useMutation()
+
+### useQuery():
+
+- useQuery() hook allow us to get data.
+- useQuery() takes an object as argument.
+- The object can accept list of properties but the main two properties we should mainly consider are:
+
+  - 1. `queryKey` --> It accepts the array which should contain `unique` value that represents the query.
+  - 2. `queryFn` --> It accepts the value of a asynchronous function which returs a Promise.
+
+* Once the useQuery() hook is provided with the object with the above mentioned properties, it should be defined to a variable.
+
+* The variable which have the useQuery({...}) hook is now have access for multiple methods in the asynchronous operation like isLoading , isError and so on.
+
+* So now using the variable which sets with the value of useQuery({...}) hook we can update the UI / do some other thing in our application like error handling , loading indications , success responses ,error responses and o on.
+
+### useMutation():
+
+- useMutation() hook is allow us to update the data.
+- As useQuery() hook it also takes an object as argument.
+- The object accepts the `mutationFn` as a main property and it allows the asynchrounous function as a value to update the data.
+
+* Ths Mutation function accepts an argument with any type which is the actual value need to be get updated.
+
+* Once we defined the useMutation({ ... }) hook with a variable, we can call `mutate()` method and pass the required value to update as an argument to that method.
+* This only will not update the value. There is a another method available called `onSuccess` in the MutationFn .
+* Before proceeding this,we must import `useQueryClient` hook from tanstack/query-client.
+* In that, we should call `invalidateQueries()` function and pass the argument of `queryKey` which query we want to mutate.
+
+### tanstack-react-query ---> App.js:
+
+```
+
+import {  useMutation, useQuery, useQueryClient } from '@tanstack/react-query'            // importing useQuery
+
+const POSTS = [
+  { id: 1, title: "Post 1" },
+  {id: 2 , title:"Post 2"}
+]
+
+
+function App() {
+
+  const queryClient = useQueryClient();
+
+
+  const postsQuery  = useQuery({                              // Assinging queryKey({...}) hook witht the variable
+    queryKey: ["Posts"],                                      // Assinging querykey
+    queryFn: () => wait(1000).then(() => [...POSTS])       // Assing queryFn with th easynchronous function.
+    // queryFn: ()=> Promise.reject("Error Ocuured!")            // Faking an Error to test for isError functionality
+
+  })
+  console.log("mutation", POSTS)
+
+
+
+
+// Defining a mutation function
+
+  const newPosMutation = useMutation({
+    mutationFn: title => {
+      return wait(1000).then(() =>
+        POSTS.push({ id: crypto.randomUUID(), title })
+      )
+    },
+    onSuccess: ()=> queryClient.invalidateQueries(["Posts"])        // Invalidating queryClient on Success
+  })
+
+  if (postsQuery.isLoading) return <h1>Loading...</h1>;     // Accessing isLoading method using queryClient variable and handling UI.
+
+  if (postsQuery.isError)  {
+    return <h1>{ JSON.stringify(postsQuery.error)}</h1>
+  }
+
+  return (
+    <div className="App">
+      {
+        postsQuery.data.map((post) => (
+          <p key={ post.id}>
+            { post.title}
+          </p>
+        ))
+      }
+      <button
+        disabled={newPosMutation.isPending}
+        onClick={() => newPosMutation.mutate("NEW POST")}>Add Item</button>    { /* Calling mutation method */}
+    </div>
+  );
+}
+
+function wait(duration) {
+  return new Promise(resolve => setTimeout(resolve, duration))
+}
+
+export default App;
+
+```
