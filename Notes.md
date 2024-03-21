@@ -937,3 +937,278 @@ function wait(duration) {
 export default App;
 
 ```
+
+# PART 2
+
+## section: 10 Thinking in React : Components , composition and reusability.
+
+### Splitting UI into components:
+
+- Component size matters. We should generally go for intermediate size components. Component should not be too large or too small.
+
+<img src="Imgaes/component_size_matters.png">
+
+<img src="Imgaes/how_to_split_UI_into_components.png">
+
+<img src="Imgaes/when_to_create_new_components.png">
+
+<img src="Imgaes/general_guildlines_component_creation.png">
+
+<img src="Imgaes/components_with_different_sizes_and_uses.png">
+
+### Component categories:
+
+<img src="Imgaes/component_categories.png" >
+
+### Component composition:
+
+<img src="Imgaes/component_composition_vs_using_a_component.png" >
+
+<img src="Imgaes/what_is_component_composition.png" >
+
+### Alternative way of component composition without using children props:
+
+- In react , we can also utilize component composition without children prop. We can use any explicit prop with any name we want to acheive the component composition.
+
+* First we need to use the component as we usually do ( < ComponentName /> ).
+* Pass the props with the desired name ( < ComponentName propName={...} /> ).
+* The prop value should be the JSX / code we actually need to pass ( < ComponentName propName={ any JSX / code } /> ).
+* The prop should be recived in the component and to be used in the desired place. ( function ComponentName({propName}) { .. use propName } )
+
+```
+
+function Demo(){
+  return (
+    <>
+    <Button explicitProp = { <span> Click me ! </span>  } />    // Passing explict prop with desired prop name.
+    <Button explicitProp = { <h1> BIG CLICK ME !</h1>  } />     // Reusing the component with another prop value
+    </>
+  )
+}
+
+function Button({ explicitProp }){                             // Receiving prop
+  return <button> explicitProp </button>                        // Using the prop
+}
+
+
+```
+
+### Props as API's:
+
+<img src="Imgaes/props_as_API.png">
+
+### Prop Types with prop-types:
+
+- prop-types is the library which imported with the react and we can use this to define the type of props in any component.
+
+* In the top of component file we should import , "prop-types" librarry with desired name we want.
+
+* And then before the component function get's starts, we should call the propTypes method in the component and assign the value as object with property name and the type.
+
+### Example :
+
+```
+
+import PropType from "prop-types"
+
+...
+StarRating.propTypes = {
+    maxStarCount: PropType.number,
+    color: PropType.string,
+    size: PropType.number,
+    className: PropType.string,
+    messages: PropType.array,
+    defaultRating: PropType.number,
+    onUpdateRating:PropType.func
+}
+
+export default function StarRating(
+    {
+        maxStarCount = 5,
+        color = "#fcc419",
+        size = 48,
+        className = "",
+        messages = [],
+        defaultRating = 0,
+        onUpdateRating
+    } ){
+    .
+    .
+
+    }
+
+```
+
+- After defining the type in the component , the component consumner can not pass different type of props to this component. Is so , the warning will be thrown in the console for debugging.
+
+- We can use Typescript instead of js to handle it without prop-types library.
+
+## How React works behind the scenes ?
+
+## Components, Component instances and React elements:
+
+<h1>Components:</h1>
+
+<img src="Imgaes/components.png"> <br><br>
+
+<h1>Components instances:</h1>
+
+<img src="Imgaes/component_instances.png">
+
+- For example, when we console any instance of a component we , amy get a object as below:
+
+* Consoling the component instance as below:
+
+```
+console.log(<App />)   //
+
+```
+
+- Result:
+
+<img src="Imgaes/console_component_instance.png">
+
+- The above object is the `React component`. The type property holds the name of the component and props holds the properties of a component if any.
+
+- The `$$typeof : Symbol(react.element)` property is the default for any react element which is added for a seurity reasons to avoid Invalid React element in the DOM by external people.
+
+<img src="Imgaes/react_elements.png">
+
+<img src="Imgaes/DOM_element.png">
+
+## How Rendering works ?
+
+<h1> Component to UI (User Interface) flow reacp </h1>
+
+<img src="Imgaes/component_to_userInterface_recap.png">
+
+<h1> Overview of How components displayed to Screen </h1>
+
+<img src="Imgaes/overview_how_components_displayed_on_screen.png">
+
+<h1> 1) --> How Render is trigerred ?</h1>
+
+<img src="Imgaes/how_render_is_trigerred.png">
+
+<h1> 2) --> The Render phase  </h1>
+
+<h2> The Overview of Render Phase </h2>
+
+<img src="Imgaes/render_phase_final_slide.png">
+
+<h2> What is Virtual DOM ? </h2>
+
+<img src="Imgaes/virtual_DOM_1.png">
+
+<img src="Imgaes/virtual_DOM_2.png">
+
+<h2> What is Reconcilation and Why it is needed ? </h2>
+
+<img src="Imgaes/reconciliation_and_use.png">
+
+<h2> The Fiber : Reconciler </h2>
+
+<img src="Imgaes/FIBER_reconciler.png">
+
+<h2> Reconcilation in action </h2>
+
+<img src="Imgaes/reconciliation_in_action.png" >
+
+<h1> 3 and 4)  --> The Commit phase & Browser Paint </h1>
+
+<h2> Overview of commit phase and browser paint phase </h2>
+
+<img src="Imgaes/commit_phase_and_browser_paint.png">
+
+<h2> React_library and Renderers </h2>
+
+<img src="Imgaes/react_library_and_react_renderers.png">
+
+<h1> Recap of how React works ? </h1>
+
+<img src="Imgaes/reacp_how_react_works.png">
+
+<h1> Diffing </h1>
+
+<h2> What is Diffing ? </h2>
+
+<img src="Imgaes/What_is_diffing.png">
+
+<h2> Diffing works for Same Position Different Element RULE </h2>
+
+<img src="Imgaes/how_diffing_works_1.png">
+
+<h2> Diffing works for Same Position Same Element RULE </h2>
+
+<img src="Imgaes/how_diffing_works_2.png">
+
+<h1> The Key Prop </h1>
+
+<h2> What is Key prop ? </h2>
+
+<img src="Imgaes/The_key_prop.png">
+
+<h2> Keys in List [Stable key ] </h2>
+
+<img src="Imgaes/Keys_in_list_stable_key.png">
+
+<h2> Key props to reset state [ Changing key ] </h2>
+
+<img src="Imgaes/key_prop_to_reset_state_changing_key.png">
+
+<h1> Rules for Render Logic </h1>
+
+<h2> The Two types of logic in react component </h2>
+
+<img src="Imgaes/Two_types_of_logic_in_react_component.png">
+
+<h2> Functional programming principles </h2>
+
+<img src="Imgaes/functional_programming_principles.png">
+
+<h2> Rules for Render logic </h2>
+
+<img src="Imgaes/Rules_for_rendering_logic.png" >
+
+<h1> State update batching </h1>
+
+<h2>How State updates are batched ?</h2>
+<img src="Imgaes/how_state_updates_are_batched.png">
+
+<h2> How NOT React updates multiple pices of state ?</h2>
+<img src="Imgaes/how_not_react_update_multiple_ieces_of_state.png">
+
+<h2> How react updates multiple pieces of state ?</h2>
+<img src="Imgaes/how_react_updates_multiple_pieces_of_state.png">
+
+<h2>Updating state is Asynchronous </h2>
+<img src="Imgaes/updating_state_is_asynchronous.png">
+
+<h2> Batching beyond the Event handler functions </h2>
+<img src="Imgaes/batching_beyond_event_handler_functions.png">
+
+<h1> How events work in React ? </h1>
+
+<h2> Event propogation and delegation </h2>
+<img src="Imgaes/event_propagation$delegation.png">
+
+<h2> How react handles Event ?</h2>
+<img src="Imgaes/how_react_handles_events.png">
+
+<h2>Synthtic Events </h2>
+<img src="Imgaes/synthetic_events.png">
+x
+<h1>Frameworks VS Libraries</h1>
+<img src="Imgaes/framework_vs_library.png">
+
+<h1>React - library ecosystem</h1>
+<img src="Imgaes/react_library_ecosystem.png">
+
+<h1> Frameworks built on react library</h1>
+<img src="Imgaes/frameworks_built_on_react.png">
+
+<h1>Summary of how React works section </h1>
+
+<img src="Imgaes/react_working_summary_1.png">
+<img src="Imgaes/react_working_summary_2.png">
+<img src="Imgaes/react_working_summary_3.png">
