@@ -75,6 +75,7 @@ function App() {
         {
           selectedBill &&
           <SplitBillForm
+            key={ selectedBill.id }
             selectedBill={selectedBill}
             setFriendsList={(value)=> hanldeBillSplit(value)}
           />
