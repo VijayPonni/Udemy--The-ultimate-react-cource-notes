@@ -10,7 +10,7 @@
 
 - For example , let us a take a object a as below:
 
-```
+```js
 const a = {
 name : 'vijay',
 initial : 'S',
@@ -21,15 +21,15 @@ interests: ['swimming', 'dancing' , 'singing']
 
 - We can get the required property from the object using period operator as below:
 
-```
-const interests = a.interests;  //  ['swimming', 'dancing' , 'singing']
+```js
+const interests = a.interests; //  ['swimming', 'dancing' , 'singing']
 ```
 
 - It is okay for small object. What if we have a complex object and want to get the multiple properties from that object. The period operator method is little complext then. But Destructuring allows us to do it in a single line as below example shows:
 
 * If I want to select multiple properties from the object we have created above.
 
-```
+```js
 const a = {
 name : 'vijay',
 initial : 'S',
@@ -52,15 +52,14 @@ conosle.log(interests);  // ['swimming', 'dancing' , 'singing']
 
 - Unlike Object Destrcuturing, Array destructuring variables is not dependant on array elements. we can set variable names according to our wish.
 
-```
-const array = [ 0 , 100 , 1000];
+```js
+const array = [0, 100, 1000];
 
-[ singleZeroNumber , doubleZeroNumber , TripleZeroNumber ] = array;
+[singleZeroNumber, doubleZeroNumber, TripleZeroNumber] = array;
 
-console.log(singleZeroNumber) // 0
-console.log(doubleZeroNumber) // 100
-console.log(TripleZeroNumber) // 1000
-
+console.log(singleZeroNumber); // 0
+console.log(doubleZeroNumber); // 100
+console.log(TripleZeroNumber); // 1000
 ```
 
 ## Rest and Spread operators:
@@ -75,7 +74,7 @@ console.log(TripleZeroNumber) // 1000
 
 * Example:
 
-```
+```js
 
 const a = {
 name : 'vijay',
@@ -104,16 +103,16 @@ console.log(other_details);   // { age: 22 , interests: ['swimming', 'dancing' ,
 
 * Example:
 
-```
-const array = [ 0 , 100 , 1000 , 11, 22 , 36749, 4738, 6 , 7];
+```js
+const array = [0, 100, 1000, 11, 22, 36749, 4738, 6, 7];
 
-[ singleZeroNumber , doubleZeroNumber , TripleZeroNumber , ...NonZeroNumbers ] = array;  // ...NonZeroNumbers is Rest operator.
+[singleZeroNumber, doubleZeroNumber, TripleZeroNumber, ...NonZeroNumbers] =
+  array; // ...NonZeroNumbers is Rest operator.
 
-console.log(singleZeroNumber) // 0
-console.log(doubleZeroNumber) // 100
-console.log(TripleZeroNumber) // 1000
-console.log(NonZeroNumbers)   // [ 11, 22 , 36749, 4738, 6 , 7 ]
-
+console.log(singleZeroNumber); // 0
+console.log(doubleZeroNumber); // 100
+console.log(TripleZeroNumber); // 1000
+console.log(NonZeroNumbers); // [ 11, 22 , 36749, 4738, 6 , 7 ]
 ```
 
 ### Spread operator in Objects:
@@ -124,7 +123,7 @@ console.log(NonZeroNumbers)   // [ 11, 22 , 36749, 4738, 6 , 7 ]
 
 * Example:
 
-```
+```js
 const a = {
 name : 'vijay',
 initial : 'S',
@@ -157,14 +156,13 @@ console.log(spreaded_A);  // {
 
 * Example:
 
-```
-const array = [ 0 , 100 , 1000 , 11, 22 , 36749, 4738, 6 , 7];
+```js
+const array = [0, 100, 1000, 11, 22, 36749, 4738, 6, 7];
 
-const spreaded_array = [ ...array , 666 , 69 , 96, 99];
+const spreaded_array = [...array, 666, 69, 96, 99];
 
-console.log(array);             // [ 0 , 100 , 1000 , 11, 22 , 36749, 4738, 6 , 7]
-console.log(spreaded_array);    // [ 0 , 100 , 1000 , 11, 22 , 36749, 4738, 6 , 7 , 666 , 69 , 96, 99 ]
-
+console.log(array); // [ 0 , 100 , 1000 , 11, 22 , 36749, 4738, 6 , 7]
+console.log(spreaded_array); // [ 0 , 100 , 1000 , 11, 22 , 36749, 4738, 6 , 7 , 666 , 69 , 96, 99 ]
 ```
 
 # Working with Components, Props and JSX
@@ -180,7 +178,7 @@ console.log(spreaded_array);    // [ 0 , 100 , 1000 , 11, 22 , 36749, 4738, 6 , 
 - The react web-packages will look for the `index.js` file to render application.
 - In index.js file the whole application can be rendred as below:
 
-```
+```js
 import React from "react";
 import ReactDOM from "react-dom/client";
 
@@ -194,18 +192,16 @@ root.render(
     <App />
   </React.StrictMode>
 );
-
 ```
 
 - strict mode is React's component which allows the component rendreing the two times for easy debuging in development time.
 
 * It is useful to enable stric mode during development by covering the root component within strictmode component as below:
 
-```
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-
+```js
+<React.StrictMode>
+  <App />
+</React.StrictMode>
 ```
 
 ## Styling React components
@@ -225,12 +221,12 @@ root.render(
 
 * Example styling :
 
-```
+```js
 function Header() {
   return (
-    <h1 style={{ color: "red", fontSize: "48px", textTransform: "uppercase" }}>  // Inline styling in JSX
+    <h1 style={{ color: "red", fontSize: "48px", textTransform: "uppercase" }}>
       {" "}
-      Vijay's Fast Pizzas.Co{" "}
+      // Inline styling in JSX Vijay's Fast Pizzas.Co{" "}
     </h1>
   );
 }
@@ -238,7 +234,7 @@ function Header() {
 
 - We can also define the styles in any variable and use it as below:
 
-```
+```js
 function Header() {
   const headerTextStyle = {
     color: "red",
@@ -247,7 +243,6 @@ function Header() {
   };
   return <h1 style={headerTextStyle}> Vijay's Fast Pizzas.Co </h1>;
 }
-
 ```
 
 ### External CSS:
@@ -264,18 +259,19 @@ function Header() {
 
 * First , we need to set the props as attributes in the child component element as below:
 
-```
+```js
 function Menu() {
   return (
-    <menu className="menu">   // Parent component
+    <menu className="menu">
+      {" "}
+      // Parent component
       <h2>Our Menu</h2>
-      <Pizza                  // Child component
-
+      <Pizza // Child component
         name="Pizza Spinaci"
         ingredients="Tomato, mozarella, spinach, and ricotta cheese"
         photoName="pizzas/spinaci.jpg"
         price="100.00"
-                                                            // Passing data as attributes
+        // Passing data as attributes
       />
     </menu>
   );
@@ -284,7 +280,7 @@ function Menu() {
 
 - Secondly, the properties need to be rrceived in the child component as arguments. React automatically converts the attributs from the parent as Object in the child component and we can access the object in the child component using javascript bloks.
 
-```
+```js
 function Menu() {
   return (
     <menu className="menu">
@@ -299,22 +295,22 @@ function Menu() {
   );
 }
 
-function Pizza(props) {                     // Receving props in child component
-  console.log("props", props);              // {
-                                                name="Pizza Spinaci"
-                                                ingredients="Tomato, mozarella, spinach, and ricotta cheese"
-                                                photoName="pizzas/spinaci.jpg"
-                                                price="100.00"
-                                                }
-  return (
-    <div>
-      <img src={props.photoName} alt={props.name} />            // Using as js blocks in child
-      <h3>{props.name}</h3>
-      <p>{props.ingredients}</p>
-    </div>
-  );
+function Pizza(props) {
+  // Receving props in child component
+  console.log("props", props); // {
+  name = "Pizza Spinaci";
+  ingredients = "Tomato, mozarella, spinach, and ricotta cheese";
+  photoName = "pizzas/spinaci.jpg";
+  price = "100.00";
 }
-
+return (
+  <div>
+    <img src={props.photoName} alt={props.name} /> // Using as js blocks in
+    child
+    <h3>{props.name}</h3>
+    <p>{props.ingredients}</p>
+  </div>
+);
 ```
 
 ### NOTE:
@@ -365,7 +361,7 @@ function Pizza(props) {                     // Receving props in child component
 
 * Example:
 
-```
+```js
 function Menu() {
   const pizzas = pizzaData;
   // const pizzas = [];
@@ -394,7 +390,6 @@ function Menu() {
       )}
     </menu>
   );
-}
 ```
 
 - NOTE : In DOM , the wrapped elements such as <p>..</p> and <ul>..</ul> doesn't have any parent element when we use react fragments.
@@ -430,26 +425,25 @@ function Menu() {
 
 * For Example , If I want to create a state for variable step with initail value 1, I must do as below:
 
-```
-  const [step, setStep] = useState(1);
-
+```js
+const [step, setStep] = useState(1);
 ```
 
 - We can update the step value by passing the value to update to the setStep function whereever we need to update and UI will change according to it.
 
-```
-  const [step, setStep] = useState(1);
+```js
+const [step, setStep] = useState(1);
 
-  function handleNext(){
-    setStep(step + 2);                           // Updating step state
-  }
+function handleNext() {
+  setStep(step + 2); // Updating step state
+}
 ```
 
 ### Importatnt things on State:
 
 - As `useState()` is a react hook, we cannot call it in any other functions / blocks . We should only define the useState() hook in the top of the Component.
 
-```
+```js
 
 function App(){
 
@@ -480,7 +474,7 @@ const [ step , setStep ] = useState(1);            // It is not possible;
 
 - If the new state is not dependant on current state value, then no need of call back function method. We can simply pass the new value as argument to the setter function.
 
-```
+```js
 
 export default function App() {
   const [step, setStep] = useState(1);
@@ -518,12 +512,10 @@ export default function App() {
 - Step 2: Add value property to the element which we want to controland assign the value to the state variable we created in first step.
 - Step 3: Add onChange property to the same element and assign the event handler function with the setState function we created in first step. Set the value as `event.target.value` in setState method which is returned by the onChange event handler to synchronous with the value.
 
-```
-
+```js
 function Form() {
-
   const [quantity, setQuantity] = useState(1);
-  const [description, setDescription] = useState("");     // Step 1
+  const [description, setDescription] = useState(""); // Step 1
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -534,36 +526,35 @@ function Form() {
       id: new Date(),
       description,
       quantity,
-      packed:false
-    }
+      packed: false,
+    };
 
-    console.log("new item", newItem)
+    console.log("new item", newItem);
 
     setQuantity(1);
     setDescription("");
-
   }
 
-
   return (
-    <form className="add-form" onSubmit={ handleSubmit}>
+    <form className="add-form" onSubmit={handleSubmit}>
       <h3> What do you need for your 😍 trip ?</h3>
       <select
         value={quantity}
-        onChange={ (event)=> setQuantity( Number(event.target.value))}
+        onChange={(event) => setQuantity(Number(event.target.value))}
       >
-        {
-          Array.from({ length: 20 }, (_, i) => i + 1).map((num) =>
-            <option key={num} value={num} >{ num}</option>
-          )
-        }
+        {Array.from({ length: 20 }, (_, i) => i + 1).map((num) => (
+          <option key={num} value={num}>
+            {num}
+          </option>
+        ))}
       </select>
       <input
-      type="text"
-      placeholder="Enter Item..."
-       value={ description}                                               // Step 2
-       onChange={ (event)=> setDescription(event.target.value)}/>         // Step 3
-      <button>Add</button>
+        type="text"
+        placeholder="Enter Item..."
+        value={description} // Step 2
+        onChange={(event) => setDescription(event.target.value)}
+      />{" "}
+      // Step 3<button>Add</button>
     </form>
   );
 }
@@ -612,7 +603,7 @@ function Form() {
 
 * App component has two children. One component has a button which simply updates a state to randpm numbers. But we need to display the number in another component which is child-2.
 
-```
+```js
 function App(){
   return (
     <div>
@@ -652,7 +643,7 @@ function Child-2(){
 
 - So, If we move the state to App, then we can pass the state as props to the Child-2 component and also the SetState function as props to the Child-1 property.
 
-```
+```js
 
 function App(){
 
@@ -713,27 +704,25 @@ function Child-2({ stateValue }){              // Receiving props from App
 
 - But, the truth is react also allows the both methods which means instead of using only the closing tag to use the component we can use the opening and closing tag fot that component as below example.
 
-```
-
-function App(){
+```js
+function App() {
   return (
     <div>
-    <Button />                            // USUAL METHOD ( Closign tag )
-    <Button></Button>                     // CHILDREN PROP METHOD ( Opening and closign tag )
+      <Button /> // USUAL METHOD ( Closign tag )<Button></Button> // CHILDREN PROP
+      METHOD ( Opening and closign tag )
     </div>
-  )
+  );
 }
 
-function Button(){                        // Component
-  return (
-    <Button>I am Button Component</Button>
-  )
+function Button() {
+  // Component
+  return <Button>I am Button Component</Button>;
 }
 ```
 
 - The important thing should consider while using the second method is react allows the default `children` prop to that component and the children props value is the value in inbetween the opening and closign tag of the component.
 
-```
+```js
 function App(){
   return (
     <div>
@@ -784,14 +773,14 @@ OUTPUT BUTTON WILL LOOK LIKE BELOW:
 
 - Installation command :
 
-```
+```js
 npm i npm i @tanstack/react-query
 
 ```
 
 - Install react-query devtools using below command:
 
-```
+```js
 npm i @tanstack/react-query-devtools
 
 ```
@@ -808,25 +797,25 @@ npm i @tanstack/react-query-devtools
 
 ### tanstack-react-query --> index.js
 
-```
+```js
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+const root = ReactDOM.createRoot(document.getElementById("root"));
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-
-const queryClient = new QueryClient();             // we can pass the default value to the querClient inside parenthesis ().
+const queryClient = new QueryClient(); // we can pass the default value to the querClient inside parenthesis ().
 
 root.render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>      {/*  Registering QueryClient with QueryClientprovider */}
-    <App />
+    <QueryClientProvider client={queryClient}>
+      {" "}
+      {/*  Registering QueryClient with QueryClientprovider */}
+      <App />
     </QueryClientProvider>
   </React.StrictMode>
 );
-
 ```
 
 ## Basic Example:
@@ -871,71 +860,62 @@ root.render(
 
 ### tanstack-react-query ---> App.js:
 
-```
-
-import {  useMutation, useQuery, useQueryClient } from '@tanstack/react-query'            // importing useQuery
+```js
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"; // importing useQuery
 
 const POSTS = [
   { id: 1, title: "Post 1" },
-  {id: 2 , title:"Post 2"}
-]
-
+  { id: 2, title: "Post 2" },
+];
 
 function App() {
-
   const queryClient = useQueryClient();
 
-
-  const postsQuery  = useQuery({                              // Assinging queryKey({...}) hook witht the variable
-    queryKey: ["Posts"],                                      // Assinging querykey
-    queryFn: () => wait(1000).then(() => [...POSTS])       // Assing queryFn with th easynchronous function.
+  const postsQuery = useQuery({
+    // Assinging queryKey({...}) hook witht the variable
+    queryKey: ["Posts"], // Assinging querykey
+    queryFn: () => wait(1000).then(() => [...POSTS]), // Assing queryFn with th easynchronous function.
     // queryFn: ()=> Promise.reject("Error Ocuured!")            // Faking an Error to test for isError functionality
+  });
+  console.log("mutation", POSTS);
 
-  })
-  console.log("mutation", POSTS)
-
-
-
-
-// Defining a mutation function
+  // Defining a mutation function
 
   const newPosMutation = useMutation({
-    mutationFn: title => {
+    mutationFn: (title) => {
       return wait(1000).then(() =>
         POSTS.push({ id: crypto.randomUUID(), title })
-      )
+      );
     },
-    onSuccess: ()=> queryClient.invalidateQueries(["Posts"])        // Invalidating queryClient on Success
-  })
+    onSuccess: () => queryClient.invalidateQueries(["Posts"]), // Invalidating queryClient on Success
+  });
 
-  if (postsQuery.isLoading) return <h1>Loading...</h1>;     // Accessing isLoading method using queryClient variable and handling UI.
+  if (postsQuery.isLoading) return <h1>Loading...</h1>; // Accessing isLoading method using queryClient variable and handling UI.
 
-  if (postsQuery.isError)  {
-    return <h1>{ JSON.stringify(postsQuery.error)}</h1>
+  if (postsQuery.isError) {
+    return <h1>{JSON.stringify(postsQuery.error)}</h1>;
   }
 
   return (
     <div className="App">
-      {
-        postsQuery.data.map((post) => (
-          <p key={ post.id}>
-            { post.title}
-          </p>
-        ))
-      }
+      {postsQuery.data.map((post) => (
+        <p key={post.id}>{post.title}</p>
+      ))}
       <button
         disabled={newPosMutation.isPending}
-        onClick={() => newPosMutation.mutate("NEW POST")}>Add Item</button>    { /* Calling mutation method */}
+        onClick={() => newPosMutation.mutate("NEW POST")}
+      >
+        Add Item
+      </button> {/* Calling mutation method */}
     </div>
   );
 }
 
 function wait(duration) {
-  return new Promise(resolve => setTimeout(resolve, duration))
+  return new Promise((resolve) => setTimeout(resolve, duration));
 }
 
 export default App;
-
 ```
 
 # PART 2
@@ -975,22 +955,22 @@ export default App;
 * The prop value should be the JSX / code we actually need to pass ( < ComponentName propName={ any JSX / code } /> ).
 * The prop should be recived in the component and to be used in the desired place. ( function ComponentName({propName}) { .. use propName } )
 
-```
-
-function Demo(){
+```js
+function Demo() {
   return (
     <>
-    <Button explicitProp = { <span> Click me ! </span>  } />    // Passing explict prop with desired prop name.
-    <Button explicitProp = { <h1> BIG CLICK ME !</h1>  } />     // Reusing the component with another prop value
+      <Button explicitProp={<span> Click me ! </span>} /> // Passing explict
+      prop with desired prop name.
+      <Button explicitProp={<h1> BIG CLICK ME !</h1>} /> // Reusing the component
+      with another prop value
     </>
-  )
+  );
 }
 
-function Button({ explicitProp }){                             // Receiving prop
-  return <button> explicitProp </button>                        // Using the prop
+function Button({ explicitProp }) {
+  // Receiving prop
+  return <button> explicitProp </button>; // Using the prop
 }
-
-
 ```
 
 ### Props as API's:
@@ -1007,7 +987,7 @@ function Button({ explicitProp }){                             // Receiving prop
 
 ### Example :
 
-```
+```js
 
 import PropType from "prop-types"
 
@@ -1059,9 +1039,8 @@ export default function StarRating(
 
 * Consoling the component instance as below:
 
-```
-console.log(<App />)   //
-
+```js
+console.log(<App />); //
 ```
 
 - Result:
@@ -1212,3 +1191,222 @@ x
 <img src="Imgaes/react_working_summary_1.png">
 <img src="Imgaes/react_working_summary_2.png">
 <img src="Imgaes/react_working_summary_3.png">
+
+<h1> Effects and Data fetching </h1>
+
+<h2>Component (instance) Lifecycle <h2>
+<img src="Imgaes/component_lifecycle.png">
+
+<h2> How NOT to fetch data in React </h2>
+
+- As we saw already we should fetch external data in the renderig ohase of a component ( Know about renderig phase in "Rules for Render logic topic)
+
+- If we do, the API you are accessing willbe called multiple time in a loop which is very worse and can crash the application.
+
+- So we should not call any API ( fetch exteral data ) in the render phase of the application like below:
+
+```js
+export default function App() {
+  const [movies, setMovies] = useState(tempMovieData);
+  const [watched, setWatched] = useState(tempWatchedData);
+
+  // DO NOT CALL API IMMEDIATELY AS BELOW  and UPDATE STATE THERE
+
+  fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=interstellar`).
+    then(res => res.json()).
+    then(data => setMovies(data))
+
+    return (
+      <>
+        <Navbar>
+    )
+}
+```
+
+<h2> USE useEffect hook to load external data as below </h2>
+
+- Instead of directy loading data in rendering phase , use useEffect a react hook to load the data.
+
+- useEffect hook takes two arguments baically. One is function to execute in the hook and second one is the dependancy array.
+
+- Passing empty array as second argument to useEffect hook will trigger the function only on MOUNT lifecycle of the component.
+
+- This will not create any infinite loop for API call.
+
+```js
+// CORRDCT WAY
+useEffect(function () {
+  fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=interstellar`)
+    .then((res) => res.json())
+    .then(
+      (data) => setMovies(data.Search)
+      // console.log("data",data.Search)
+    );
+}, []);
+
+// WRONG WAY
+fetch(`http://www.omdbapi.com/?apikey=${KEY}&s=interstellar`)
+  .then((res) => res.json())
+  .then(
+    (data) => setMovies(data.Search)
+    // console.log("data",data.Search)
+  );
+```
+
+<h1> Effects - Introduction  </h1>
+
+<h2> Where to create side effects </h2>
+<img src="Imgaes/where_to_create_side_effects.png">
+
+<h2> Event handlers vs Side effects </h2>
+<img src="Imgaes/event_handlers_vs_effects.png">
+
+<h1> Using async functions in useEffects hook </h1>
+
+- As we already know useEffect hook will receive functon as first argument. If we want to pass the `async` function as a first argument to the hook, It is not possible.
+
+* So to utilize the async functions inside the useEffect hook, we must use a oridinary function as first argument and inside the function we must define our required aync function and then call that function too to make it work as weexpected.
+
+```js
+useEffect(
+  // 1st argument  : Function which has side effects
+  function () {
+    // Defining async function inside useEffect function
+    async function FetchMovies() {
+      const res = await fetch(
+        `http://www.omdbapi.com/?apikey=${KEY}&s=interstellar`
+      );
+      const data = await res.json();
+      setMovies(data.Search);
+    }
+
+    // Calling the defined async function inside the useEffect hook function itself to execute the async function
+    FetchMovies();
+  },
+  // 2nd argument : Dependency array
+  []
+);
+```
+
+<h2> useEffect dependancy Array </h2>
+<img src="Imgaes/use_effect_dependancy_array.png">
+
+<h2> Use Effect SYNCHRONIZATION machanism </h2>
+<img src="Imgaes/use_effect_synchronization_machanism.png">
+
+<h2>Synchronization And lifecycle </h2>
+<img src="Imgaes/use_effect_synchronozation&life_cycle.png">
+
+<h2>When are effects executed ?</h2>
+<img src="Imgaes/when_are_effects_executed.png">
+
+<h2> The clean up function </h2>
+<img src="Imgaes/the_clean_up_function.png">
+
+NOTE : Even though, the clean up functon is executed after the component unmounted, It can still access the state values in cleanup function because of closure concept in javascript.
+
+<h2> Clean up Data fetching</h2>
+
+* In applications, when we call Fetch API's rapidly one by one, it will cause race conditions which means API's get called very fast one by one and every of them get downloaded in browser but we actually don't want all of them.
+
+* For example , In usePopcorn application, When we search for movies we call fetch API to get movies list in API component , the fetch API is getting called rapidly one by one and creates race condition.
+
+<img src="Imgaes/race_condition_while_fetch.png">
+
+* In order to fix this issue, we need to cleanup the fetch API if next request is started. So that the we can only get the latest response.
+
+* To do this we just need to use `AbortController` webAPI as below:
+
+* First step, we need to define the instance of controller as below:
+
+```javascript
+
+useEffect( function(){
+  const controller = new abortController();
+
+  // remaining
+
+} ,[state])
+
+
+```
+* Next we should use this controller in fetch API by passing this in fetch API body as below:
+
+```javascript
+
+useEffect( function(){
+
+const controller = new abortController();
+
+// remaining code ... 
+
+fetch( `API` , { 
+  signal: controller.signal
+})
+
+//... 
+
+} ,[state])
+
+
+
+```
+
+* Next we should call the abort function of the controller in cleanup function in useEffecthook as below:
+
+```javascript
+
+useEffect( function(){
+
+const controller = new abortController();
+
+// remaining code ... 
+
+fetch( `API` , { 
+  signal: controller.signal
+})
+
+//... 
+
+return function(){
+  controller.abort();
+}
+
+} ,[state])
+
+```
+
+* Now, the controller will abort the fetch request when a new one get triggered but it will cause error and captured in error block with the error name `AbortError`. So to get the result we need to avoild the AbortError in catchblock as below:
+
+```javascript
+
+useEffect( function(){
+
+const controller = new abortController();
+
+// remaining code ... 
+
+try{
+  fetch( `API` , { 
+    signal: controller.signal
+  })
+}
+catch(error){ 
+
+  // Handling AbortError
+
+if(error.name !== 'AbortError'){
+  setError(error.message)
+}
+}
+
+//... 
+
+return function(){
+  controller.abort();
+}
+
+} ,[state])
+
+```
+
