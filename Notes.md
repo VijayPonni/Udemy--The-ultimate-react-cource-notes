@@ -1410,3 +1410,351 @@ return function(){
 
 ```
 
+# Custom Hooks
+
+# React hooks and and their rules:
+
+<img src="Imgaes/custom_hook_intro.png">
+
+# Overview of built-in hooks:
+
+<img src="Imgaes/overview_of_built_in_hooks.png">
+
+# The Rules of hooks:
+
+<img src="Imgaes/the_rules_of_hooks.png">
+
+## Hooks rely on call order -1 :
+
+<img src="Imgaes/hooks_rely_on_call_order_1.png">
+
+<img src="Imgaes/hooks_rely_on_call_order_2.png">
+
+# More details of useState() hook :
+
+## Initializing state with a callback ( Lazy initial state )
+
+* We can simply pass a function as initial value for an useState hook. 
+
+* When we initialize a state using ueeState() hook and we can set inital value for the state inside the curly bracs as `useState(initial value)`.
+
+* Instead of passing a value directly inside the curly bracs we can also pass a function which return the inital value we want as below
+
+```javascript
+const [ demo , setDemo ] = useState( function(){
+  return JSON.parse(ocalStorage.getItem('watched'));
+});
+```
+
+* The above state declaration is having initial value from localStorage.
+
+## useState Summary :
+
+<img src="Imgaes/summary_use_state.png">
+
+# How NOT to select DOM elements in react :
+
+* We should not select DOM elements mannually in React like document.querySelector method even though it works as expected.
+
+* For example in usepopcorn application if we want to implement auto focus in Search component when application mounts we can do that as below:
+
+```javascript
+
+function Search(){
+  // Even though it works as expected We should NOT DO THIS
+  useEffect(function(){
+    const searchElment = document.querySelector('.search');
+    searchElement.focus();
+  } ,[])
+
+  return <></>
+}
+
+```
+
+* The above code mannually selected DOM element and updates it. But in react We shoud not do this instead we should `useRef` hook which react library provides.
+
+# UseRef hook introduction:
+
+## What are Refs? :
+
+<img src="Imgaes/what_are_refs.png">
+
+## Difference between State and Ref :
+
+<img src="Imgaes/state_vs_ref.png">
+
+## UseRef hooks to Select DOM elements:
+
+* Using a ref with the DOM element invlovs three steps.
+
+### Step 1: Creating Ref
+
+  * First step is to create ref variable using `userRef()` hook. 
+
+  * For that we should import useRef hook from reaact library as we do for useState hook.
+
+  * Next we should create hook like `useRef()` and inside the curly bracs we should pass the initial value and for the DOM element selectd initial value will be `null` in most cases.
+
+  * Next we should assign this hook to some variable. As useRef() hook returns simply a `ref` , it will get assigned to the created variable.
+
+  ```javascript
+
+  import { useRef } from 'react';
+
+  const inputEl = useRef(null);   // Creating Ref
+
+  ```
+
+### Step 2 : Connecting created Ref in element we want to select
+
+* In second step, we should use this created ref variable in the element we want to select.
+
+* In the desired element we must add `ref` property and assign the value. The value should be the created ref variable in first step.
+
+* If We want to select an INPUT DOM element, we should do as below:  
+
+```javascript
+
+import { useRef } from 'react';
+
+  const inputEl = useRef(null); // Creating Ref
+
+
+  <input
+  type="text"
+  placeholder="Search"
+  ref={ inputEl }               // Using Ref 
+  />
+
+```
+
+* Now the the input element is connected with the ref variable. We can accss the ref variable instead of selecting the DOM element by querySelector method.
+
+### Step 3 : Using the Ref :
+
+* Now as third step, we should use the ref.
+
+* We can only use the ref which has the DOM element inside `useEffect()` hook as both the DOM element and useEffect hook are available after DOM fully loaded.
+
+* Now We can perform any operations on that element using the ref.
+
+* To access the direct element we should access the `current` property of the ref. Usually `current` property stores the value of the ref.
+
+```javascript
+
+ const inputEl = useRef(null); // Creating Ref
+
+
+ useEffect(function(){
+   inputEl.current.focus();            // Using ref to access DOM element inside useEffect hook
+ },[])
+
+
+  <input
+  type="text"
+  placeholder="Search"
+  ref={ inputEl }               // Using Ref 
+  />
+
+```
+
+# Refs to persist data between renders
+
+* Apart from Selecting DOM elements, refs are used as a variables whose values need to be persited across re-renders ( last value not get changed ).
+
+* Ref variables also do not re-render the application when it get updated but state variables cause re-render.
+
+* Mostly we will use this type of useRef variables to store background values of an application like storing timestampt values to stop timers and so on. Because those values are not meant to displayed to user. 
+
+* If any value is needed to displayed, we want to use `state` because if that variable gets updated re-render will happen and updated value will be displayed. But when we use `ref` variables , if we update them re-render won't happen. So, the updated value will not be displayed to user even if it gets updated.
+
+```javascript
+  // Creating Ref variable
+  const countRef = useRef(0);
+
+  // updating Ref variable in useEffect  ( Because we are not allowed to update refs in render logic. So we should use useEffect )
+  useEffect(function(){
+    if(userRating) countRef.current++;
+  },[userRating])
+```
+
+# Custom hooks :
+
+* Custom hooks is all about reusablity. Custom hooks are simple javascript function which contains one or more hooks inside it. The custom hook functions are reusable as normal functions.
+
+## When to use custom hooks:
+
+<img src="Imgaes/reusing_logics_with_custom_hooks.png">
+
+
+## useMovies Custom hook :
+
+* In `usePopcorn` application App component, we have fetchMovies logic inside `useEffect` hook which is responsible for fetching the movie information from API. As this logic is non-visual logic we can take this and turn into a custom hook called `useMovies()`.
+
+* So, For that first I created a new file name `useMovies.js` in usepopcorn project.
+
+* As we already know, custom hooks are simple javascript functions, I creatd a `useMovies` function inside useMovies.js file to make the function act as a custom hook.
+
+* Then I need to transfer the code from the App component to useMovies() hook. So I copied the below code from app-v2.js and pasted inside the function useMovies() in useMovies.js file :
+
+### app-v2.js :
+
+```javascript
+
+    useEffect(
+        function () {
+    
+          const controller = new AbortController();
+    
+          async function FetchMovies() {
+            try {
+              setIsloading(true);
+              setError("");
+              const res = await fetch(
+                `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
+                { signal: controller.signal }
+              );
+    
+              if (!res.ok) {
+                const errorMessage = "Something went wrong fetching movies";
+                setError(errorMessage);
+                // throw new Error(errorMessage)
+                return;
+              }
+    
+              const data = await res.json();
+    
+              if (data.Response === "False") {
+                const errorMessage = "Movie not found";
+                setError(errorMessage);
+                return;
+                // throw new Error("Movie not found")
+              }
+    
+              setMovies(data.Search);
+              setError("");
+            } catch (err) {
+              if(err.name !== 'AbortError'){
+                setError(err.message);
+              }
+            } finally {
+              setIsloading(false);
+            }
+          }
+    
+          if (query.length < 3) {
+            setError("");
+            setMovies([]);
+            return;
+          }
+          FetchMovies();
+    
+          return function(){
+            controller.abort();
+          }
+        },
+        [query]
+      );
+
+
+```
+
+* And I transfered required states and variables between app-v2.js file and useMovies.js file.
+
+* The updated code of useMovies.js is as below:
+
+```javascript
+import { useEffect , useState } from "react";
+import { tempMovieData } from './constants'
+import { KEY } from './constants';
+
+export function useMovies(query){
+
+    const [movies, setMovies] = useState(tempMovieData);
+    const [isLoading, setIsloading] = useState(false);
+    const [error, setError] = useState("");
+    
+
+    useEffect(
+        function () {
+          const controller = new AbortController();
+          async function FetchMovies() {
+            try {
+              setIsloading(true);
+              setError("");
+              const res = await fetch(
+                `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
+                { signal: controller.signal }
+              );
+    
+              if (!res.ok) {
+                const errorMessage = "Something went wrong fetching movies";
+                setError(errorMessage);
+                // throw new Error(errorMessage)
+                return;
+              }
+    
+              const data = await res.json();
+    
+              if (data.Response === "False") {
+                const errorMessage = "Movie not found";
+                setError(errorMessage);
+                return;
+                // throw new Error("Movie not found")
+              }
+    
+              setMovies(data.Search);
+              setError("");
+            } catch (err) {
+              if(err.name !== 'AbortError'){
+                setError(err.message);
+              }
+            } finally {
+              setIsloading(false);
+            }
+          }
+    
+          if (query.length < 3) {
+            setError("");
+            setMovies([]);
+            return;
+          }
+          FetchMovies();
+    
+          return function(){
+            controller.abort();
+          }
+        },
+        [query]
+      );
+
+      return {
+        movies,isLoading,error
+      }
+
+}
+```
+
+* I have returned an object which consisits movies,isLoading, error state variables which are required for JSX in app component.
+
+* And It is consumed app component as below:
+
+### app-v2.js :
+
+```javascript
+
+import { useEffect, useState , useRef} from "react";
+import StarRating from "./StarRating";
+import { useMovies } from "./useMovies";
+import { KEY } from './constants';
+
+export default function App() {
+  const [query, setQuery] = useState("");
+
+  // consuming useMovies hook
+  const { movies , isLoading , error } = useMovies(query);
+
+ ....
+}
+```
