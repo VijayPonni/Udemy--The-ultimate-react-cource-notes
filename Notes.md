@@ -1758,3 +1758,12 @@ export default function App() {
  ....
 }
 ```
+
+# Class component section
+
+# Difference between Class component and Functional component
+
+<img src="Imgaes/class_component_vs_functional_component.png">
+
+
+
