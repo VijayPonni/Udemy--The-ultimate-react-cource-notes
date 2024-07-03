@@ -1307,107 +1307,100 @@ NOTE : Even though, the clean up functon is executed after the component unmount
 
 <h2> Clean up Data fetching</h2>
 
-* In applications, when we call Fetch API's rapidly one by one, it will cause race conditions which means API's get called very fast one by one and every of them get downloaded in browser but we actually don't want all of them.
+- In applications, when we call Fetch API's rapidly one by one, it will cause race conditions which means API's get called very fast one by one and every of them get downloaded in browser but we actually don't want all of them.
 
-* For example , In usePopcorn application, When we search for movies we call fetch API to get movies list in API component , the fetch API is getting called rapidly one by one and creates race condition.
+- For example , In usePopcorn application, When we search for movies we call fetch API to get movies list in API component , the fetch API is getting called rapidly one by one and creates race condition.
 
 <img src="Imgaes/race_condition_while_fetch.png">
 
-* In order to fix this issue, we need to cleanup the fetch API if next request is started. So that the we can only get the latest response.
+- In order to fix this issue, we need to cleanup the fetch API if next request is started. So that the we can only get the latest response.
 
-* To do this we just need to use `AbortController` webAPI as below:
+- To do this we just need to use `AbortController` webAPI as below:
 
-* First step, we need to define the instance of controller as below:
-
-```javascript
-
-useEffect( function(){
-  const controller = new abortController();
-
-  // remaining
-
-} ,[state])
-
-
-```
-* Next we should use this controller in fetch API by passing this in fetch API body as below:
+- First step, we need to define the instance of controller as below:
 
 ```javascript
+useEffect(
+  function () {
+    const controller = new abortController();
 
-useEffect( function(){
-
-const controller = new abortController();
-
-// remaining code ... 
-
-fetch( `API` , { 
-  signal: controller.signal
-})
-
-//... 
-
-} ,[state])
-
-
-
+    // remaining
+  },
+  [state]
+);
 ```
 
-* Next we should call the abort function of the controller in cleanup function in useEffecthook as below:
+- Next we should use this controller in fetch API by passing this in fetch API body as below:
 
 ```javascript
+useEffect(
+  function () {
+    const controller = new abortController();
 
-useEffect( function(){
+    // remaining code ...
 
-const controller = new abortController();
+    fetch(`API`, {
+      signal: controller.signal,
+    });
 
-// remaining code ... 
-
-fetch( `API` , { 
-  signal: controller.signal
-})
-
-//... 
-
-return function(){
-  controller.abort();
-}
-
-} ,[state])
-
+    //...
+  },
+  [state]
+);
 ```
 
-* Now, the controller will abort the fetch request when a new one get triggered but it will cause error and captured in error block with the error name `AbortError`. So to get the result we need to avoild the AbortError in catchblock as below:
+- Next we should call the abort function of the controller in cleanup function in useEffecthook as below:
 
 ```javascript
+useEffect(
+  function () {
+    const controller = new abortController();
 
-useEffect( function(){
+    // remaining code ...
 
-const controller = new abortController();
+    fetch(`API`, {
+      signal: controller.signal,
+    });
 
-// remaining code ... 
+    //...
 
-try{
-  fetch( `API` , { 
-    signal: controller.signal
-  })
-}
-catch(error){ 
+    return function () {
+      controller.abort();
+    };
+  },
+  [state]
+);
+```
 
-  // Handling AbortError
+- Now, the controller will abort the fetch request when a new one get triggered but it will cause error and captured in error block with the error name `AbortError`. So to get the result we need to avoild the AbortError in catchblock as below:
 
-if(error.name !== 'AbortError'){
-  setError(error.message)
-}
-}
+```javascript
+useEffect(
+  function () {
+    const controller = new abortController();
 
-//... 
+    // remaining code ...
 
-return function(){
-  controller.abort();
-}
+    try {
+      fetch(`API`, {
+        signal: controller.signal,
+      });
+    } catch (error) {
+      // Handling AbortError
 
-} ,[state])
+      if (error.name !== "AbortError") {
+        setError(error.message);
+      }
+    }
 
+    //...
+
+    return function () {
+      controller.abort();
+    };
+  },
+  [state]
+);
 ```
 
 # Custom Hooks
@@ -1434,19 +1427,19 @@ return function(){
 
 ## Initializing state with a callback ( Lazy initial state )
 
-* We can simply pass a function as initial value for an useState hook. 
+- We can simply pass a function as initial value for an useState hook.
 
-* When we initialize a state using ueeState() hook and we can set inital value for the state inside the curly bracs as `useState(initial value)`.
+- When we initialize a state using ueeState() hook and we can set inital value for the state inside the curly bracs as `useState(initial value)`.
 
-* Instead of passing a value directly inside the curly bracs we can also pass a function which return the inital value we want as below
+- Instead of passing a value directly inside the curly bracs we can also pass a function which return the inital value we want as below
 
 ```javascript
-const [ demo , setDemo ] = useState( function(){
-  return JSON.parse(ocalStorage.getItem('watched'));
+const [demo, setDemo] = useState(function () {
+  return JSON.parse(ocalStorage.getItem("watched"));
 });
 ```
 
-* The above state declaration is having initial value from localStorage.
+- The above state declaration is having initial value from localStorage.
 
 ## useState Summary :
 
@@ -1454,25 +1447,23 @@ const [ demo , setDemo ] = useState( function(){
 
 # How NOT to select DOM elements in react :
 
-* We should not select DOM elements mannually in React like document.querySelector method even though it works as expected.
+- We should not select DOM elements mannually in React like document.querySelector method even though it works as expected.
 
-* For example in usepopcorn application if we want to implement auto focus in Search component when application mounts we can do that as below:
+- For example in usepopcorn application if we want to implement auto focus in Search component when application mounts we can do that as below:
 
 ```javascript
-
-function Search(){
+function Search() {
   // Even though it works as expected We should NOT DO THIS
-  useEffect(function(){
-    const searchElment = document.querySelector('.search');
+  useEffect(function () {
+    const searchElment = document.querySelector(".search");
     searchElement.focus();
-  } ,[])
+  }, []);
 
-  return <></>
+  return <></>;
 }
-
 ```
 
-* The above code mannually selected DOM element and updates it. But in react We shoud not do this instead we should `useRef` hook which react library provides.
+- The above code mannually selected DOM element and updates it. But in react We shoud not do this instead we should `useRef` hook which react library provides.
 
 # UseRef hook introduction:
 
@@ -1486,60 +1477,55 @@ function Search(){
 
 ## UseRef hooks to Select DOM elements:
 
-* Using a ref with the DOM element invlovs three steps.
+- Using a ref with the DOM element invlovs three steps.
 
 ### Step 1: Creating Ref
 
-  * First step is to create ref variable using `userRef()` hook. 
+- First step is to create ref variable using `userRef()` hook.
 
-  * For that we should import useRef hook from reaact library as we do for useState hook.
+- For that we should import useRef hook from reaact library as we do for useState hook.
 
-  * Next we should create hook like `useRef()` and inside the curly bracs we should pass the initial value and for the DOM element selectd initial value will be `null` in most cases.
+- Next we should create hook like `useRef()` and inside the curly bracs we should pass the initial value and for the DOM element selectd initial value will be `null` in most cases.
 
-  * Next we should assign this hook to some variable. As useRef() hook returns simply a `ref` , it will get assigned to the created variable.
+- Next we should assign this hook to some variable. As useRef() hook returns simply a `ref` , it will get assigned to the created variable.
 
-  ```javascript
+```javascript
+import { useRef } from "react";
 
-  import { useRef } from 'react';
-
-  const inputEl = useRef(null);   // Creating Ref
-
-  ```
+const inputEl = useRef(null); // Creating Ref
+```
 
 ### Step 2 : Connecting created Ref in element we want to select
 
-* In second step, we should use this created ref variable in the element we want to select.
+- In second step, we should use this created ref variable in the element we want to select.
 
-* In the desired element we must add `ref` property and assign the value. The value should be the created ref variable in first step.
+- In the desired element we must add `ref` property and assign the value. The value should be the created ref variable in first step.
 
-* If We want to select an INPUT DOM element, we should do as below:  
+- If We want to select an INPUT DOM element, we should do as below:
 
 ```javascript
+import { useRef } from "react";
 
-import { useRef } from 'react';
+const inputEl = useRef(null); // Creating Ref
 
-  const inputEl = useRef(null); // Creating Ref
-
-
-  <input
+<input
   type="text"
   placeholder="Search"
-  ref={ inputEl }               // Using Ref 
-  />
-
+  ref={inputEl} // Using Ref
+/>;
 ```
 
-* Now the the input element is connected with the ref variable. We can accss the ref variable instead of selecting the DOM element by querySelector method.
+- Now the the input element is connected with the ref variable. We can accss the ref variable instead of selecting the DOM element by querySelector method.
 
 ### Step 3 : Using the Ref :
 
-* Now as third step, we should use the ref.
+- Now as third step, we should use the ref.
 
-* We can only use the ref which has the DOM element inside `useEffect()` hook as both the DOM element and useEffect hook are available after DOM fully loaded.
+- We can only use the ref which has the DOM element inside `useEffect()` hook as both the DOM element and useEffect hook are available after DOM fully loaded.
 
-* Now We can perform any operations on that element using the ref.
+- Now We can perform any operations on that element using the ref.
 
-* To access the direct element we should access the `current` property of the ref. Usually `current` property stores the value of the ref.
+- To access the direct element we should access the `current` property of the ref. Usually `current` property stores the value of the ref.
 
 ```javascript
 
@@ -1554,191 +1540,188 @@ import { useRef } from 'react';
   <input
   type="text"
   placeholder="Search"
-  ref={ inputEl }               // Using Ref 
+  ref={ inputEl }               // Using Ref
   />
 
 ```
 
 # Refs to persist data between renders
 
-* Apart from Selecting DOM elements, refs are used as a variables whose values need to be persited across re-renders ( last value not get changed ).
+- Apart from Selecting DOM elements, refs are used as a variables whose values need to be persited across re-renders ( last value not get changed ).
 
-* Ref variables also do not re-render the application when it get updated but state variables cause re-render.
+- Ref variables also do not re-render the application when it get updated but state variables cause re-render.
 
-* Mostly we will use this type of useRef variables to store background values of an application like storing timestampt values to stop timers and so on. Because those values are not meant to displayed to user. 
+- Mostly we will use this type of useRef variables to store background values of an application like storing timestampt values to stop timers and so on. Because those values are not meant to displayed to user.
 
-* If any value is needed to displayed, we want to use `state` because if that variable gets updated re-render will happen and updated value will be displayed. But when we use `ref` variables , if we update them re-render won't happen. So, the updated value will not be displayed to user even if it gets updated.
+- If any value is needed to displayed, we want to use `state` because if that variable gets updated re-render will happen and updated value will be displayed. But when we use `ref` variables , if we update them re-render won't happen. So, the updated value will not be displayed to user even if it gets updated.
 
 ```javascript
-  // Creating Ref variable
-  const countRef = useRef(0);
+// Creating Ref variable
+const countRef = useRef(0);
 
-  // updating Ref variable in useEffect  ( Because we are not allowed to update refs in render logic. So we should use useEffect )
-  useEffect(function(){
-    if(userRating) countRef.current++;
-  },[userRating])
+// updating Ref variable in useEffect  ( Because we are not allowed to update refs in render logic. So we should use useEffect )
+useEffect(
+  function () {
+    if (userRating) countRef.current++;
+  },
+  [userRating]
+);
 ```
 
 # Custom hooks :
 
-* Custom hooks is all about reusablity. Custom hooks are simple javascript function which contains one or more hooks inside it. The custom hook functions are reusable as normal functions.
+- Custom hooks is all about reusablity. Custom hooks are simple javascript function which contains one or more hooks inside it. The custom hook functions are reusable as normal functions.
 
 ## When to use custom hooks:
 
 <img src="Imgaes/reusing_logics_with_custom_hooks.png">
 
-
 ## useMovies Custom hook :
 
-* In `usePopcorn` application App component, we have fetchMovies logic inside `useEffect` hook which is responsible for fetching the movie information from API. As this logic is non-visual logic we can take this and turn into a custom hook called `useMovies()`.
+- In `usePopcorn` application App component, we have fetchMovies logic inside `useEffect` hook which is responsible for fetching the movie information from API. As this logic is non-visual logic we can take this and turn into a custom hook called `useMovies()`.
 
-* So, For that first I created a new file name `useMovies.js` in usepopcorn project.
+- So, For that first I created a new file name `useMovies.js` in usepopcorn project.
 
-* As we already know, custom hooks are simple javascript functions, I creatd a `useMovies` function inside useMovies.js file to make the function act as a custom hook.
+- As we already know, custom hooks are simple javascript functions, I creatd a `useMovies` function inside useMovies.js file to make the function act as a custom hook.
 
-* Then I need to transfer the code from the App component to useMovies() hook. So I copied the below code from app-v2.js and pasted inside the function useMovies() in useMovies.js file :
+- Then I need to transfer the code from the App component to useMovies() hook. So I copied the below code from app-v2.js and pasted inside the function useMovies() in useMovies.js file :
 
 ### app-v2.js :
 
 ```javascript
+useEffect(
+  function () {
+    const controller = new AbortController();
 
-    useEffect(
-        function () {
-    
-          const controller = new AbortController();
-    
-          async function FetchMovies() {
-            try {
-              setIsloading(true);
-              setError("");
-              const res = await fetch(
-                `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
-                { signal: controller.signal }
-              );
-    
-              if (!res.ok) {
-                const errorMessage = "Something went wrong fetching movies";
-                setError(errorMessage);
-                // throw new Error(errorMessage)
-                return;
-              }
-    
-              const data = await res.json();
-    
-              if (data.Response === "False") {
-                const errorMessage = "Movie not found";
-                setError(errorMessage);
-                return;
-                // throw new Error("Movie not found")
-              }
-    
-              setMovies(data.Search);
-              setError("");
-            } catch (err) {
-              if(err.name !== 'AbortError'){
-                setError(err.message);
-              }
-            } finally {
-              setIsloading(false);
-            }
-          }
-    
-          if (query.length < 3) {
-            setError("");
-            setMovies([]);
-            return;
-          }
-          FetchMovies();
-    
-          return function(){
-            controller.abort();
-          }
-        },
-        [query]
-      );
+    async function FetchMovies() {
+      try {
+        setIsloading(true);
+        setError("");
+        const res = await fetch(
+          `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
+          { signal: controller.signal }
+        );
 
+        if (!res.ok) {
+          const errorMessage = "Something went wrong fetching movies";
+          setError(errorMessage);
+          // throw new Error(errorMessage)
+          return;
+        }
 
+        const data = await res.json();
+
+        if (data.Response === "False") {
+          const errorMessage = "Movie not found";
+          setError(errorMessage);
+          return;
+          // throw new Error("Movie not found")
+        }
+
+        setMovies(data.Search);
+        setError("");
+      } catch (err) {
+        if (err.name !== "AbortError") {
+          setError(err.message);
+        }
+      } finally {
+        setIsloading(false);
+      }
+    }
+
+    if (query.length < 3) {
+      setError("");
+      setMovies([]);
+      return;
+    }
+    FetchMovies();
+
+    return function () {
+      controller.abort();
+    };
+  },
+  [query]
+);
 ```
 
-* And I transfered required states and variables between app-v2.js file and useMovies.js file.
+- And I transfered required states and variables between app-v2.js file and useMovies.js file.
 
-* The updated code of useMovies.js is as below:
+- The updated code of useMovies.js is as below:
 
 ```javascript
-import { useEffect , useState } from "react";
-import { tempMovieData } from './constants'
-import { KEY } from './constants';
+import { useEffect, useState } from "react";
+import { tempMovieData } from "./constants";
+import { KEY } from "./constants";
 
-export function useMovies(query){
+export function useMovies(query) {
+  const [movies, setMovies] = useState(tempMovieData);
+  const [isLoading, setIsloading] = useState(false);
+  const [error, setError] = useState("");
 
-    const [movies, setMovies] = useState(tempMovieData);
-    const [isLoading, setIsloading] = useState(false);
-    const [error, setError] = useState("");
-    
+  useEffect(
+    function () {
+      const controller = new AbortController();
+      async function FetchMovies() {
+        try {
+          setIsloading(true);
+          setError("");
+          const res = await fetch(
+            `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
+            { signal: controller.signal }
+          );
 
-    useEffect(
-        function () {
-          const controller = new AbortController();
-          async function FetchMovies() {
-            try {
-              setIsloading(true);
-              setError("");
-              const res = await fetch(
-                `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
-                { signal: controller.signal }
-              );
-    
-              if (!res.ok) {
-                const errorMessage = "Something went wrong fetching movies";
-                setError(errorMessage);
-                // throw new Error(errorMessage)
-                return;
-              }
-    
-              const data = await res.json();
-    
-              if (data.Response === "False") {
-                const errorMessage = "Movie not found";
-                setError(errorMessage);
-                return;
-                // throw new Error("Movie not found")
-              }
-    
-              setMovies(data.Search);
-              setError("");
-            } catch (err) {
-              if(err.name !== 'AbortError'){
-                setError(err.message);
-              }
-            } finally {
-              setIsloading(false);
-            }
-          }
-    
-          if (query.length < 3) {
-            setError("");
-            setMovies([]);
+          if (!res.ok) {
+            const errorMessage = "Something went wrong fetching movies";
+            setError(errorMessage);
+            // throw new Error(errorMessage)
             return;
           }
-          FetchMovies();
-    
-          return function(){
-            controller.abort();
-          }
-        },
-        [query]
-      );
 
-      return {
-        movies,isLoading,error
+          const data = await res.json();
+
+          if (data.Response === "False") {
+            const errorMessage = "Movie not found";
+            setError(errorMessage);
+            return;
+            // throw new Error("Movie not found")
+          }
+
+          setMovies(data.Search);
+          setError("");
+        } catch (err) {
+          if (err.name !== "AbortError") {
+            setError(err.message);
+          }
+        } finally {
+          setIsloading(false);
+        }
       }
 
+      if (query.length < 3) {
+        setError("");
+        setMovies([]);
+        return;
+      }
+      FetchMovies();
+
+      return function () {
+        controller.abort();
+      };
+    },
+    [query]
+  );
+
+  return {
+    movies,
+    isLoading,
+    error,
+  };
 }
 ```
 
-* I have returned an object which consisits movies,isLoading, error state variables which are required for JSX in app component.
+- I have returned an object which consisits movies,isLoading, error state variables which are required for JSX in app component.
 
-* And It is consumed app component as below:
+- And It is consumed app component as below:
 
 ### app-v2.js :
 
@@ -1765,5 +1748,53 @@ export default function App() {
 
 <img src="Imgaes/class_component_vs_functional_component.png">
 
+# PART : 3 Advanced React + Redux
 
+# useReducer hook:
 
+## Why Reducer ?
+
+<img src="Imgaes/why_useReducer.png">
+
+## Managing state with useReducer :
+
+<img src="Imgaes/managing_state_with_use_reducer.png">
+
+## How reducers update the state ?
+
+<img src="Imgaes/how_reducers_update_state.png">
+
+## A mental model for reducers:
+
+<img src="Imgaes/mental_model_for_reducers.png">
+
+## loading fake API using Json server npm package :
+
+### installing npm package :
+
+- Install the npm json server package using below command in project directory:
+
+```terminal
+npm i json-server
+```
+
+- Add new npm script in the `package.json` under `scripts` section file of your project.
+
+```terminal
+ "scripts": {s
+    .
+    .
+    .
+    "server": "json-server --watch data/questions.json --port 8000"
+  },
+```
+
+- Also prepare the data and have the file in the same project to serve that via json server as above. In my case I have the file and the data folder and the file name is `questions.json` as mentioned in the above command.
+
+# useState VS useReducer
+
+<img src="Imgaes/useState_VS_useReducer.png">
+
+# When to use useReducer ?
+
+<img src="Imgaes/when_to_use_useReducer.png">
