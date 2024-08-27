@@ -1798,3 +1798,792 @@ npm i json-server
 # When to use useReducer ?
 
 <img src="Imgaes/when_to_use_useReducer.png">
+
+# Section 17 : React router ( Building single page application )
+
+## Creating react app using vite :
+
+### Steps:
+
+- Step 1 : Use the below command to create a project in terminal
+
+```terminal
+npm create vite@version_number
+```
+
+step 2 : Once vite installed, please type project name as it prompts for:
+
+step 3 : Once you provide the project name, the prompt will provide list of options to select a framework. Select of your chice. In my case I have chosen `React` from the provided list.
+
+Step 4 : Once react is selected from the list of framework, then it will ask to select a variant. I have chosen Javascript. Choose according to yur choice.
+
+Step 5 : Now the application is created and available.
+
+## Running the application :
+
+- Once the application is created using vite, we should run that.
+
+- Go to the project directory.
+
+- First install the necessary package by running `npm install` command in terminal in that project directory.
+
+* Once the packages installed the below is the file structure of the created React project created using vite.
+
+```terminal
+
+project_directory
+|
+|--> node_modules_folder
+|
+|--> public_folder
+|    |
+     |--> logo.svg
+|
+|--> src_folder
+|     |
+|     |--> assests_folder
+|     |
+|     |--> App.css
+|     |
+|     |--> App.jsx
+|     |
+|     |--> index.css
+|     |
+|     |--> main.jsx
+|
+|--> .eslintrc.cjs
+|
+|--> .gitignore
+|
+|--> index.html
+|
+|--> package-lock-json
+|
+|--> package.json
+|
+|--> README.md
+|
+|--> vite.config.json
+
+```
+
+- In this the `jsx` files acts as the simple javascript files in react. No changes in functionalities. `main.jsx` is the root component of this appliation where `App` component is defined.
+
+- Use the `npm run dev` to run the application in terminal.
+
+## Setting up `eslint` in vite project:
+
+- By default vite projects will not contain the eslint setup as react-react-app have. So, we need to setup mannually.
+
+- To setup eslint with react specfic rules, we need to install the below three packages as dev-dependencies in terminal using `npm i` as below:
+
+  - eslint --> Normal eslint package
+  - vite-plugin-eslint --> vite with eslint
+  - eslint-config-react-app --> eslint rules file for react app
+
+```terminal
+npm i eslint vite-plugin-eslint eslint-config-react-app --save-dev
+```
+
+- This will insatll all the required packages.
+
+* Next configure the eslintrc.json file in the project to extend the react-eslint rules. Have the below code in the `eslintrc.json` file.
+
+```js
+{
+  "extends":"react-app"
+}
+```
+
+- NOTE : Normally this file will be updated with required code. If so please leave as it is.
+
+- And next configure the `vite.configure.js` file to add vite-plugin-eslint package as below:
+
+### vite.config.js :
+
+```js
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import eslint from "vite-plugin-eslint"; // import vite-plugin-eslint package
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [react(), eslint()], // add the eslint to this array
+});
+```
+
+- Now the the vite project is set up with eslint.
+
+# React Single Page Application:
+
+## What is Routing ?
+
+<img src="Imgaes/what_is_routing.png">
+
+## Single Page Application (SPA):
+
+<img src="Imgaes/single_page_applications.png">
+
+## Implementing Main pages and Routes using React router package :
+
+### Creating components :
+
+- To create a routes, we need to have components to map the routes. First we need to create the components.
+
+* So, I have created components for multiple pages under the `pages` directory.
+
+### Installing react-router npm package :
+
+- Install the react-router-dom npm package using below command in the terminal
+
+```terminal
+npm i react-router-dom@version
+```
+
+- NOTE: If version is not mentioned, the latest version will get downloaded.
+
+### Defining routes :
+
+- We have already have some components. Now, we must map those components with corresponding routes. For that we first need to define our route and map the components.
+
+* We can define routes in App component as it is the root of the application.
+
+* In react-router version 6 , we can define the routes using declarative approach that follows:
+
+* There are three Components we need to aware of to proeceed the routes definiing which are provided by the react-router-dom package and can be imported from the package.
+
+* The components are :
+
+  - <BrowserRouter></BrowserRouter> --> It is container component to handle routes.
+
+  - <Routes></Routes> --> It is a parent component of all Route Components. All Routes should be listed inside this.
+
+  - <Route></Route> --> It is the Route component which actually maps the route with the components to display.
+
+          --> it accepts two props. They are :
+
+          --> path : It accepts the value as string which represents the route.
+          --> The value "/" means the root path which basically is "http;//;localhost:port"
+          --> The value "*" means all route paths that are not defined.
+          --> Example : If path="products" means --> http;//localhost:3001/products
+
+          --> element : It accepts the component to map with the defined route path.
+          --> If the path is "/", element is set to <Home />,then the Homecomponent is displayed as root.
+
+* So, If we decided to define routes the below is the structure:
+
+### App.jsx ( 11-WORLDWISE )
+
+```js
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Homepage from "../pages/Homepage";
+import Product from "../pages/Product";
+import Pricing from "../pages/Pricing";
+import Pagenotfound from "../pages/Pagenotfound";
+
+function App() {
+  return (
+    <div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Homepage />}></Route>
+          <Route path="product" element={<Product />}></Route>
+          <Route path="pricing" element={<Pricing />}></Route>
+          <Route path="*" element={<Pagenotfound />}></Route>
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
+}
+
+export default App;
+```
+
+- With this , we can now naviagete between the three pages by mannually changing the browser URL's. and this cause page reloading.
+
+## Linking between routes with `<Link>` and `<NavLink>` :
+
+- Once we defined the routes, we can navigate among the routes using by clicking a link in a page.
+
+- usually in a web-application, we move page to page by clicking a button or link.
+
+- There are two Elements available in react-rouer-dom package to handle routes among the defined routes without reloading the page.
+
+### `<Link></Link>` :
+
+- `<Link></Link>` element must be imported from the react-route-dom package where we need to use it.
+
+- It acts as the normal `<a>` tag which is responsible for opening a new page in browser. When we provide the url in src attribute of an anchor tag , the give URL will be open in a browser when we click on it.
+
+- Likewise, `<Link></Link>` element allows us to specify the route path to navigate to that route when we click on that Link element. We can specify the route path in Link element using `to` attribute.
+
+- `to` attribute of Link element takes the string value which should be route path we defined already with starting forward slash. For example, we may have defined one route with path="products" , if we create a `<Link></Link>` element to naviage to that route , we must specify the to attribut value as "/products".
+
+### Example:
+
+- If I decided to create a seperate component for simple navbar for my routes, the code will be look like beolow:
+
+### App.jsx ( Defined routes ) :
+
+```js
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Homepage from "../pages/Homepage";
+import Product from "../pages/Product";
+import Pricing from "../pages/Pricing";
+import Pagenotfound from "../pages/Pagenotfound";
+
+function App() {
+  return (
+    <div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Homepage />}></Route>
+          <Route path="product" element={<Product />}></Route>
+          <Route path="pricing" element={<Pricing />}></Route>
+          <Route path="*" element={<Pagenotfound />}></Route>
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
+}
+
+export default App;
+```
+
+### Pagenav.jsx :
+
+```js
+import { Link } from "react-router-dom";
+
+function Pagenav() {
+  return (
+    <nav>
+      <ul>
+        <li>
+          <Link to="/">home</Link>
+        </li>
+        <li>
+          <Link to="/pricing">Pricing</Link>
+        </li>
+        <li>
+          <Link to="/product">Products</Link>
+        </li>
+      </ul>
+    </nav>
+  );
+}
+
+export default Pagenav;
+```
+
+### `<NavLink></NavLink>` :
+
+- `<NavLink></NavLink>` element also acts as same as `<Link></Link>` element but it has one addition feature which we can track the active route when we use `<NavLink></NavLink>`.
+
+- When we use `<NavLink></NavLink>` active class is automatcally added to the element and if the route is active it will be true , if it is not active it is false. With this we can style the active link alone to differentiate with other links.
+
+<img src="Imgaes/NavLink-active.png">
+
+## Styling options for React applications:
+
+<img src="Imgaes/styling_options_in_react.png">
+
+# using CSS Modules :
+
+- CSS Modules is to provide one seperate css file for one component.
+
+- Usually In React the CSS Modules are default. When we install react using `create-react-app` or `vite`, the CSS Modules are bundled with them. So don't need to install any libraries to work with CSS Modules.
+
+## Creating CSS Module file:
+
+- CSS module file is an external css file we should create for component template.
+
+- CSS Module file strictly follows naming convention. The CSS Module file name should startwith the exact component name for which we decided to create CSS Modeule. The follows the name of the component the `.module.css` extension should be added. For example, If the component file name which we decided to create CSS Module is `Pagenav.js`, then the new file should be created in the same directory and that should be named as `Pagenav.module.css`.
+
+## Connecting css classes with components :
+
+- The newly created CSS module file is simply acts as the normal css file and we can write styles in that.
+
+- Once class is created, we can then simply import the css module file in the component template file to use the className in the element as usual.
+
+* When a single css class from CSS module is connected with it's element, the css modules adds an additional unique_id with the added classname to make the class unique. So that the same className occurrence in the component will not get affected by this as it will have it's own unique key attached with it's className.
+
+### Pagenav.module.css :
+
+```css
+.nav {
+  background-color: green;
+}
+.nav ul {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+}
+```
+
+### Pagenav.js :
+
+```js
+import { NavLink } from "react-router-dom";
+import styles from "./Pagenav.module.css"; // Importing styles
+
+function Pagenav() {
+  return (
+    <nav className={styles.nav}>
+      {" "}
+      {/* Applying class "nav" */}
+      <ul>
+        <li>
+          <NavLink to="/">home</NavLink>
+        </li>
+        <li>
+          <NavLink to="/pricing">Pricing</NavLink>
+        </li>
+        <li>
+          <NavLink to="/product">Products</NavLink>
+        </li>
+      </ul>
+    </nav>
+  );
+}
+
+export default Pagenav;
+```
+
+<img src="Imgaes/nav_class_with_unique_id.png">
+
+## Global styles using CSS Modules :
+
+- Inside the css module files, we can also write global class using the `global` function provided by csss modules.
+
+- We just want to simply wrap our class with `:global()` function to make the class globally accessable all over the application regardless of the componenet it belongs to.
+
+```css
+:global(.test) {
+  background-color: red;
+}
+```
+
+- It is used to handle some classes that are loaded by external libraries. For example `active` class is attached to the Link tag by react-router-dom package. So to style the active nav bar element we need to use gloabl function as below:
+
+```css
+.nav a:global(.active) {
+  color: var(--color-brand--2);
+}
+```
+
+## Nested Route and Index Route :
+
+- Nested routes are routes inside another routes. When the part of the UI need to be render based on the part of the url then nested routes can be used.
+
+## Decalring Nested routes:
+
+- We should wrap the children routes inside it's parent route.
+
+- For example , consider we already have a path as `http://localhost:3000/app` , and in this we displayes AppLayoutComponent. Now we want to create new pieces of UI inside the AppLayoutComponent based on the route urls. So we can add children routes to the app route.
+
+- The routes we want to add are as follows: `http://localhost:3000/app/cities` , `http://localhost:3000/app/countries` and `http://localhost:3000/app/form` .
+
+- we want to declare the routes as below inside it's parent route:
+
+### App.jsx :
+
+```js
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Homepage from "../pages/Homepage";
+import Product from "../pages/Product";
+import Pricing from "../pages/Pricing";
+import AppLayout from "../pages/AppLayout";
+import PageNotFound from "../pages/PageNotFound";
+import Login from "../pages/Login";
+
+function App() {
+  return (
+    <div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Homepage />}></Route>
+          <Route path="pricing" element={<Pricing />}></Route>
+          <Route path="product" element={<Product />}></Route>
+          <Route path="login" element={<Login />}></Route>
+          <Route path="app" element={<AppLayout />}>
+            <Route path="cities" element={<p>I am cities</p>}></Route>
+            <Route path="countries" element={<p>I am countries</p>}></Route>
+            <Route path="form" element={<p>I am FORM</p>}></Route>
+          </Route>
+          <Route path="*" element={<PageNotFound />}></Route>
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
+}
+
+export default App;
+```
+
+- In the above rotes declaration, cities , countries and form are the children routes of app.
+
+- Now we can access the route urls `http://localhost:3000/app/cities` , `http://localhost:3000/app/countries` and `http://localhost:3000/app/form` without issue. But we will not see the element we defined in that route in the component view. For example when we access the `http://localhost:3000/app/cities` , the Paragraph '<p>I am cities</p>' will ot seen anywhere as not yest defined that. We should do that.
+
+## Displaying Child route elementing using <Outlet /> component :
+
+- Once the children routes are defined we need to decide where the element should be render in the parent.Once the positon is identified then we should import `<outlet/>` Component from the `react-roouter-dom` package.
+
+- The `<outlet/>` component acts as the placeholder and renders the defined components in the children routes in the place where it is used.
+
+* For example , I want to render the all the three children routes inside the sidebar component which is the children of the appLayout component.
+
+### Sidebar.jsx :
+
+```js
+import { Outlet } from "react-router-dom";
+import AppNav from "./AppNav";
+import Footer from "./Footer";
+import Logo from "./Logo";
+import styles from "./Sidebar.module.css";
+
+function Sidebar() {
+  return (
+    <div className={styles.sidebar}>
+      <Logo />
+      <AppNav />
+      <Outlet /> {/*   Placing the child routes*/}
+      <Footer />
+    </div>
+  );
+}
+
+export default Sidebar;
+```
+
+- Now, When the url is `http://localhost:3000/app/cities` , the "I am the cities paragraph" will be displayed in the sidebar component. Instead of a paragraph we can also render another component in that place by passing the component in the element arrinbute.
+
+## Index route:
+
+- An index route is basically a default child route that matches when other children routes are not available in the parent route.
+
+- We can define the Routes with `index` attribute to make the Route available when parent route Url is accessed without other children routes added.
+
+* I have defined an index route as below:
+
+### App.jsx :
+
+```js
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Homepage from "../pages/Homepage";
+import Product from "../pages/Product";
+import Pricing from "../pages/Pricing";
+import AppLayout from "../pages/AppLayout";
+import PageNotFound from "../pages/PageNotFound";
+import Login from "../pages/Login";
+
+function App() {
+  return (
+    <div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Homepage />}></Route>
+          <Route path="pricing" element={<Pricing />}></Route>
+          <Route path="product" element={<Product />}></Route>
+          <Route path="login" element={<Login />}></Route>
+          <Route path="app" element={<AppLayout />}>
+            <Route index element={<p>I am INDEX</p>}></Route> {/* Index route */}
+            <Route path="cities" element={<p>I am cities</p>}></Route>
+            <Route path="countries" element={<p>I am countries</p>}></Route>
+            <Route path="form" element={<p>I am FORM</p>}></Route>
+          </Route>
+          <Route path="*" element={<PageNotFound />}></Route>
+        </Routes>
+      </BrowserRouter>
+    </div>
+  );
+}
+
+export default App;
+```
+
+# Storing State in the URL :
+
+<img src="Imgaes/url_for_state_management.png">
+
+<img src="Imgaes/params&query_strings.png">
+
+## Using params in React Router:
+
+- To use Params in react router, we basically follow three simple steps.
+
+1. Create a new route.
+2. Link the route.
+3. Read the state from the route.
+
+- We can create route with params as below with the name which we want to use in future.
+
+```js
+...
+  <Route path="cities/:id" element={<City />}></Route>
+...
+```
+
+- In the above sample route the name `id` followed by the : is the params and we will the receive the value of that params in the same name.
+
+* We can link the route using `Link` element provided by react-router package. we should pass the dynamic value which is id in this example in the to attribute of the link tag.
+
+* When the route is loaded, we can retrive the value of the params using `useParams()` method which is provided by react-router. It will provided the value as object as below:
+
+```js
+{
+  id: 334555;
+}
+```
+
+## Reading and setting a Query String
+
+- Setting a query string is as simple as cn=oncatinationg the required string values in the `to` attribute of Link element where we want to pass the query string.
+
+- We can simple concate `?` and the name of the query string and the dynamic value which we want to pass as query string.
+
+- We can pass multiple query string followed by `&` operation.
+
+### CityItem.jsx :
+
+```jsx
+  const { cityName, emoji, date, id, position } = city;
+  return (
+    <li>
+      <Link
+        to={`${id}?lat=${position.lat}&lng=${position.lng}`} // Multipple Query string
+        className={Styles.cityItem}
+      >
+
+  )
+```
+
+- We can use `useSearchParams()` hook which s provided by react router to read the query sring from the URL.
+
+- As this hook is act as useState it provides two values on is the state and another one is setState function.
+
+- We can simple retrieve the query string from the URL using this method.
+
+* URL search params hook provides lot of methods to handle the search params. We can use get method to get the value of the search params.
+
+### Map.jsx :
+
+```js
+import { useSearchParams } from "react-router-dom";
+import styles from "./Map.module.css";
+
+function Map() {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const lat = searchParams.get("lat");
+  const lng = searchParams.get("lng");
+
+  console.log("searchParams", searchParams);
+  return (
+    <div className={styles.mapContainer}>
+      <h1>MAp</h1>
+      <h1>
+        {" "}
+        Position :{lat} , {lng}
+      </h1>
+    </div>
+  );
+}
+
+export default Map;
+```
+
+- We can also set update the query string values using set method by passing the new query string as an argument
+
+### Map.jsx :
+
+```js
+import { useSearchParams } from "react-router-dom";
+import styles from "./Map.module.css";
+
+function Map() {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const lat = searchParams.get("lat");
+  const lng = searchParams.get("lng");
+
+  console.log("searchParams", searchParams);
+  return (
+    <div className={styles.mapContainer}>
+      <h1>MAp</h1>
+      <h1>
+        Position :{lat} , {lng}
+      </h1>
+      <button onClick={() => setSearchParams({ lat: 773, lng: 800 })}>
+        Change the Position
+      </button>
+    </div>
+  );
+}
+
+export default Map;
+```
+
+- When the button is clicked, the entire query string is get upated in the URL and whereever this is used.
+
+### Programatic navigation:
+
+- Programatic navigation means, navigting to a new page withput a button click or change route directly from URL.
+
+- Mostly we will do do this in Form submision. Once the form is get submitted, we will navigate to some other page programatically.
+
+* The custom hook called `useNavigate()` from react-router will provide navigate method to navigate to a available route by calling and passing a route string as a argument.
+
+* For example in the below map component click will navigate the page to the form route using UseNavigate() method.
+
+### Map.jsx:
+
+```js
+import { useNavigate, useSearchParams } from "react-router-dom";
+import styles from "./Map.module.css";
+
+function Map() {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const lat = searchParams.get("lat");
+  const lng = searchParams.get("lng");
+  const navigate = useNavigate();
+
+  console.log("searchParams", searchParams);
+  return (
+    <div className={styles.mapContainer} onClick={() => navigate("form")}>
+      <h1>MAp</h1>
+      <h1>
+        Position :{lat} , {lng}
+      </h1>
+      <button onClick={() => setSearchParams({ lat: 773, lng: 800 })}>
+        Change the Position
+      </button>
+    </div>
+  );
+}
+
+export default Map;
+```
+
+- We can also go back and forth using the naviagte method from the routing. When we pass -1 as argument to the navigate method navigate(-1) the route will move one step back and if it is positive number it will go forth in routing.
+
+### Programatic navigation using <Navigate> :
+
+- <navigate / > component is provided by react-router. It has to property on it. It is act as redirect route. Instead of loading the already loaded component in index route, we can simply redirect to the route of that component by providing the route in to the `to` attribute of Navigate method.
+
+* We should also use `replace` attribute while using Navigate component so that we can move to back of the page using browser's route URL.
+
+# Section 18 : Advanced State Management : Context API
+
+# What is the Context API :
+
+## Context API is the solution to prop drilling :
+
+<img src="Imgaes/solution_to_prop_drilling.png">
+
+## What is the Context API ?
+
+<img src="Imgaes/what_is_the_context_api.png">
+
+## Creating and Providing a Context
+
+- Context API has three important parts s below:
+
+  1. Providers.
+  2. Value or data.
+  3. Consumers.
+
+### Step 1 : Creating Providers:
+
+- To create a Provide, we should use the `createContext()` method from react library.
+
+- The createContext() method value should be assigned with some variable which holds the context provider component. As this is like a component we must follow Pascal case naming connventions as Component for this context variable.
+
+* And we can also pass the initial value if necessary but it is mandatory for createContext().
+
+### 12-AUTOMIC-BLOGS ( App.js ) :
+
+```javascript
+import { createContext, useEffect, useState } from "react";
+
+// 1 CREATE CONTEXT
+const PostContext = createContext();
+
+function App() {
+  return <>...</>;
+}
+```
+
+### Step 2 : Providing value to Context:
+
+- As the context Variable is a component now , we can use it is a component selector.
+
+- With the context Component, we can wrap all the children components to pass data to all the children via this single context provider.
+
+- By applying `provider` method on this context selector, this context gets qualification to share data to all the children component using `value` attribute.
+
+- We can pass our all properties as a single object in this value propes to receive them in all children components.
+
+### 12 - AUTOMIC-BLOGS ( App.js ) :
+
+```javascript
+import { createContext, useEffect, useState } from "react";
+
+// 1 CREATE CONTEXT
+const PostContext = createContext();
+
+function App() {
+  return (
+    // 2 PROVIDE VALUE TO CHILDREN COMPONENTS
+    <PostContext.Provider
+      value={{
+        posts: searchedPosts,
+        onAddPost: handleAddPost,
+        onClearPosts: handleClearPosts,
+        searchQuery,
+        setSearchQuery,
+      }}
+    >
+      <section>....</section>
+    </PostContext.Provider>
+  );
+}
+```
+
+### Step 3 : Consuming the Context
+
+- We have provided value to the children components via Context Providers. And we can consume this value which is a state object in the components using `useContext()` hoook from react.
+
+* By passing the createdContext name as an argument to the useContext hook, it provides us the value in the component where we want to consume it without the need of props.
+
+### 12- AUTOMIC-BLOG ( App.js ) :
+
+```javascript
+function Header() {
+  // 3. CONSUMING THE CONTEXT VALUE
+  const { onClearPosts } = useContext(PostContext);
+  return (
+    <header>
+      <h1>
+        <span>⚛️</span>The Atomic Blog
+      </h1>
+      <div>
+        <Results />
+        <SearchPosts />
+        <button onClick={onClearPosts}>Clear posts</button>
+      </div>
+    </header>
+  );
+}
+```
+
+## Thinking in React : Advanced State management :
+
+<img src="Imgaes/review_what_is-state_management.png">
+
+<img src="Imgaes/types_of_state.png">
+
+<img src="Imgaes/state_placement_options.png">
+
+<img src="Imgaes/state_management_tool_options.png">
