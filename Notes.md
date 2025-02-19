@@ -179,14 +179,14 @@ console.log(spreaded_array); // [ 0 , 100 , 1000 , 11, 22 , 36749, 4738, 6 , 7 ,
 - In index.js file the whole application can be rendred as below:
 
 ```js
-import React from "react";
-import ReactDOM from "react-dom/client";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
 
 function App() {
   return <h1>Hello VIJAY!</h1>;
 }
 
-const root = ReactDOM.createRoot(document.getElementById("root")); // The div element is obtained from index.html file in public folder
+const root = ReactDOM.createRoot(document.getElementById('root')); // The div element is obtained from index.html file in public folder
 root.render(
   <React.StrictMode>
     <App />
@@ -224,9 +224,9 @@ root.render(
 ```js
 function Header() {
   return (
-    <h1 style={{ color: "red", fontSize: "48px", textTransform: "uppercase" }}>
-      {" "}
-      // Inline styling in JSX Vijay's Fast Pizzas.Co{" "}
+    <h1 style={{ color: 'red', fontSize: '48px', textTransform: 'uppercase' }}>
+      {' '}
+      // Inline styling in JSX Vijay's Fast Pizzas.Co{' '}
     </h1>
   );
 }
@@ -237,9 +237,9 @@ function Header() {
 ```js
 function Header() {
   const headerTextStyle = {
-    color: "red",
-    fontSize: "48px",
-    textTransform: "uppercase",
+    color: 'red',
+    fontSize: '48px',
+    textTransform: 'uppercase',
   };
   return <h1 style={headerTextStyle}> Vijay's Fast Pizzas.Co </h1>;
 }
@@ -262,15 +262,15 @@ function Header() {
 ```js
 function Menu() {
   return (
-    <menu className="menu">
-      {" "}
+    <menu className='menu'>
+      {' '}
       // Parent component
       <h2>Our Menu</h2>
       <Pizza // Child component
-        name="Pizza Spinaci"
-        ingredients="Tomato, mozarella, spinach, and ricotta cheese"
-        photoName="pizzas/spinaci.jpg"
-        price="100.00"
+        name='Pizza Spinaci'
+        ingredients='Tomato, mozarella, spinach, and ricotta cheese'
+        photoName='pizzas/spinaci.jpg'
+        price='100.00'
         // Passing data as attributes
       />
     </menu>
@@ -283,13 +283,13 @@ function Menu() {
 ```js
 function Menu() {
   return (
-    <menu className="menu">
+    <menu className='menu'>
       <h2>Our Menu</h2>
       <Pizza
-        name="Pizza Spinaci"
-        ingredients="Tomato, mozarella, spinach, and ricotta cheese"
-        photoName="pizzas/spinaci.jpg"
-        price="100.00"
+        name='Pizza Spinaci'
+        ingredients='Tomato, mozarella, spinach, and ricotta cheese'
+        photoName='pizzas/spinaci.jpg'
+        price='100.00'
       />
     </menu>
   );
@@ -297,11 +297,11 @@ function Menu() {
 
 function Pizza(props) {
   // Receving props in child component
-  console.log("props", props); // {
-  name = "Pizza Spinaci";
-  ingredients = "Tomato, mozarella, spinach, and ricotta cheese";
-  photoName = "pizzas/spinaci.jpg";
-  price = "100.00";
+  console.log('props', props); // {
+  name = 'Pizza Spinaci';
+  ingredients = 'Tomato, mozarella, spinach, and ricotta cheese';
+  photoName = 'pizzas/spinaci.jpg';
+  price = '100.00';
 }
 return (
   <div>
@@ -515,7 +515,7 @@ export default function App() {
 ```js
 function Form() {
   const [quantity, setQuantity] = useState(1);
-  const [description, setDescription] = useState(""); // Step 1
+  const [description, setDescription] = useState(''); // Step 1
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -529,14 +529,14 @@ function Form() {
       packed: false,
     };
 
-    console.log("new item", newItem);
+    console.log('new item', newItem);
 
     setQuantity(1);
-    setDescription("");
+    setDescription('');
   }
 
   return (
-    <form className="add-form" onSubmit={handleSubmit}>
+    <form className='add-form' onSubmit={handleSubmit}>
       <h3> What do you need for your 😍 trip ?</h3>
       <select
         value={quantity}
@@ -549,11 +549,11 @@ function Form() {
         ))}
       </select>
       <input
-        type="text"
-        placeholder="Enter Item..."
+        type='text'
+        placeholder='Enter Item...'
         value={description} // Step 2
         onChange={(event) => setDescription(event.target.value)}
-      />{" "}
+      />{' '}
       // Step 3<button>Add</button>
     </form>
   );
@@ -798,19 +798,19 @@ npm i @tanstack/react-query-devtools
 ### tanstack-react-query --> index.js
 
 ```js
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import App from './App';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById('root'));
 
 const queryClient = new QueryClient(); // we can pass the default value to the querClient inside parenthesis ().
 
 root.render(
   <React.StrictMode>
     <QueryClientProvider client={queryClient}>
-      {" "}
+      {' '}
       {/*  Registering QueryClient with QueryClientprovider */}
       <App />
     </QueryClientProvider>
@@ -861,11 +861,11 @@ root.render(
 ### tanstack-react-query ---> App.js:
 
 ```js
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"; // importing useQuery
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'; // importing useQuery
 
 const POSTS = [
-  { id: 1, title: "Post 1" },
-  { id: 2, title: "Post 2" },
+  { id: 1, title: 'Post 1' },
+  { id: 2, title: 'Post 2' },
 ];
 
 function App() {
@@ -873,11 +873,11 @@ function App() {
 
   const postsQuery = useQuery({
     // Assinging queryKey({...}) hook witht the variable
-    queryKey: ["Posts"], // Assinging querykey
+    queryKey: ['Posts'], // Assinging querykey
     queryFn: () => wait(1000).then(() => [...POSTS]), // Assing queryFn with th easynchronous function.
     // queryFn: ()=> Promise.reject("Error Ocuured!")            // Faking an Error to test for isError functionality
   });
-  console.log("mutation", POSTS);
+  console.log('mutation', POSTS);
 
   // Defining a mutation function
 
@@ -887,7 +887,7 @@ function App() {
         POSTS.push({ id: crypto.randomUUID(), title })
       );
     },
-    onSuccess: () => queryClient.invalidateQueries(["Posts"]), // Invalidating queryClient on Success
+    onSuccess: () => queryClient.invalidateQueries(['Posts']), // Invalidating queryClient on Success
   });
 
   if (postsQuery.isLoading) return <h1>Loading...</h1>; // Accessing isLoading method using queryClient variable and handling UI.
@@ -897,13 +897,13 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className='App'>
       {postsQuery.data.map((post) => (
         <p key={post.id}>{post.title}</p>
       ))}
       <button
         disabled={newPosMutation.isPending}
-        onClick={() => newPosMutation.mutate("NEW POST")}
+        onClick={() => newPosMutation.mutate('NEW POST')}
       >
         Add Item
       </button> {/* Calling mutation method */}
@@ -1388,7 +1388,7 @@ useEffect(
     } catch (error) {
       // Handling AbortError
 
-      if (error.name !== "AbortError") {
+      if (error.name !== 'AbortError') {
         setError(error.message);
       }
     }
@@ -1435,7 +1435,7 @@ useEffect(
 
 ```javascript
 const [demo, setDemo] = useState(function () {
-  return JSON.parse(ocalStorage.getItem("watched"));
+  return JSON.parse(ocalStorage.getItem('watched'));
 });
 ```
 
@@ -1455,7 +1455,7 @@ const [demo, setDemo] = useState(function () {
 function Search() {
   // Even though it works as expected We should NOT DO THIS
   useEffect(function () {
-    const searchElment = document.querySelector(".search");
+    const searchElment = document.querySelector('.search');
     searchElement.focus();
   }, []);
 
@@ -1490,7 +1490,7 @@ function Search() {
 - Next we should assign this hook to some variable. As useRef() hook returns simply a `ref` , it will get assigned to the created variable.
 
 ```javascript
-import { useRef } from "react";
+import { useRef } from 'react';
 
 const inputEl = useRef(null); // Creating Ref
 ```
@@ -1504,13 +1504,13 @@ const inputEl = useRef(null); // Creating Ref
 - If We want to select an INPUT DOM element, we should do as below:
 
 ```javascript
-import { useRef } from "react";
+import { useRef } from 'react';
 
 const inputEl = useRef(null); // Creating Ref
 
 <input
-  type="text"
-  placeholder="Search"
+  type='text'
+  placeholder='Search'
   ref={inputEl} // Using Ref
 />;
 ```
@@ -1596,14 +1596,14 @@ useEffect(
     async function FetchMovies() {
       try {
         setIsloading(true);
-        setError("");
+        setError('');
         const res = await fetch(
           `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
           { signal: controller.signal }
         );
 
         if (!res.ok) {
-          const errorMessage = "Something went wrong fetching movies";
+          const errorMessage = 'Something went wrong fetching movies';
           setError(errorMessage);
           // throw new Error(errorMessage)
           return;
@@ -1611,17 +1611,17 @@ useEffect(
 
         const data = await res.json();
 
-        if (data.Response === "False") {
-          const errorMessage = "Movie not found";
+        if (data.Response === 'False') {
+          const errorMessage = 'Movie not found';
           setError(errorMessage);
           return;
           // throw new Error("Movie not found")
         }
 
         setMovies(data.Search);
-        setError("");
+        setError('');
       } catch (err) {
-        if (err.name !== "AbortError") {
+        if (err.name !== 'AbortError') {
           setError(err.message);
         }
       } finally {
@@ -1630,7 +1630,7 @@ useEffect(
     }
 
     if (query.length < 3) {
-      setError("");
+      setError('');
       setMovies([]);
       return;
     }
@@ -1649,14 +1649,14 @@ useEffect(
 - The updated code of useMovies.js is as below:
 
 ```javascript
-import { useEffect, useState } from "react";
-import { tempMovieData } from "./constants";
-import { KEY } from "./constants";
+import { useEffect, useState } from 'react';
+import { tempMovieData } from './constants';
+import { KEY } from './constants';
 
 export function useMovies(query) {
   const [movies, setMovies] = useState(tempMovieData);
   const [isLoading, setIsloading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState('');
 
   useEffect(
     function () {
@@ -1664,14 +1664,14 @@ export function useMovies(query) {
       async function FetchMovies() {
         try {
           setIsloading(true);
-          setError("");
+          setError('');
           const res = await fetch(
             `http://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
             { signal: controller.signal }
           );
 
           if (!res.ok) {
-            const errorMessage = "Something went wrong fetching movies";
+            const errorMessage = 'Something went wrong fetching movies';
             setError(errorMessage);
             // throw new Error(errorMessage)
             return;
@@ -1679,17 +1679,17 @@ export function useMovies(query) {
 
           const data = await res.json();
 
-          if (data.Response === "False") {
-            const errorMessage = "Movie not found";
+          if (data.Response === 'False') {
+            const errorMessage = 'Movie not found';
             setError(errorMessage);
             return;
             // throw new Error("Movie not found")
           }
 
           setMovies(data.Search);
-          setError("");
+          setError('');
         } catch (err) {
-          if (err.name !== "AbortError") {
+          if (err.name !== 'AbortError') {
             setError(err.message);
           }
         } finally {
@@ -1698,7 +1698,7 @@ export function useMovies(query) {
       }
 
       if (query.length < 3) {
-        setError("");
+        setError('');
         setMovies([]);
         return;
       }
@@ -1902,9 +1902,9 @@ npm i eslint vite-plugin-eslint eslint-config-react-app --save-dev
 ### vite.config.js :
 
 ```js
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import eslint from "vite-plugin-eslint"; // import vite-plugin-eslint package
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import eslint from 'vite-plugin-eslint'; // import vite-plugin-eslint package
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -1975,21 +1975,21 @@ npm i react-router-dom@version
 ### App.jsx ( 11-WORLDWISE )
 
 ```js
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Homepage from "../pages/Homepage";
-import Product from "../pages/Product";
-import Pricing from "../pages/Pricing";
-import Pagenotfound from "../pages/Pagenotfound";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Homepage from '../pages/Homepage';
+import Product from '../pages/Product';
+import Pricing from '../pages/Pricing';
+import Pagenotfound from '../pages/Pagenotfound';
 
 function App() {
   return (
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Homepage />}></Route>
-          <Route path="product" element={<Product />}></Route>
-          <Route path="pricing" element={<Pricing />}></Route>
-          <Route path="*" element={<Pagenotfound />}></Route>
+          <Route path='/' element={<Homepage />}></Route>
+          <Route path='product' element={<Product />}></Route>
+          <Route path='pricing' element={<Pricing />}></Route>
+          <Route path='*' element={<Pagenotfound />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
@@ -2026,21 +2026,21 @@ export default App;
 ### App.jsx ( Defined routes ) :
 
 ```js
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Homepage from "../pages/Homepage";
-import Product from "../pages/Product";
-import Pricing from "../pages/Pricing";
-import Pagenotfound from "../pages/Pagenotfound";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Homepage from '../pages/Homepage';
+import Product from '../pages/Product';
+import Pricing from '../pages/Pricing';
+import Pagenotfound from '../pages/Pagenotfound';
 
 function App() {
   return (
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Homepage />}></Route>
-          <Route path="product" element={<Product />}></Route>
-          <Route path="pricing" element={<Pricing />}></Route>
-          <Route path="*" element={<Pagenotfound />}></Route>
+          <Route path='/' element={<Homepage />}></Route>
+          <Route path='product' element={<Product />}></Route>
+          <Route path='pricing' element={<Pricing />}></Route>
+          <Route path='*' element={<Pagenotfound />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
@@ -2053,20 +2053,20 @@ export default App;
 ### Pagenav.jsx :
 
 ```js
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 function Pagenav() {
   return (
     <nav>
       <ul>
         <li>
-          <Link to="/">home</Link>
+          <Link to='/'>home</Link>
         </li>
         <li>
-          <Link to="/pricing">Pricing</Link>
+          <Link to='/pricing'>Pricing</Link>
         </li>
         <li>
-          <Link to="/product">Products</Link>
+          <Link to='/product'>Products</Link>
         </li>
       </ul>
     </nav>
@@ -2124,23 +2124,23 @@ export default Pagenav;
 ### Pagenav.js :
 
 ```js
-import { NavLink } from "react-router-dom";
-import styles from "./Pagenav.module.css"; // Importing styles
+import { NavLink } from 'react-router-dom';
+import styles from './Pagenav.module.css'; // Importing styles
 
 function Pagenav() {
   return (
     <nav className={styles.nav}>
-      {" "}
+      {' '}
       {/* Applying class "nav" */}
       <ul>
         <li>
-          <NavLink to="/">home</NavLink>
+          <NavLink to='/'>home</NavLink>
         </li>
         <li>
-          <NavLink to="/pricing">Pricing</NavLink>
+          <NavLink to='/pricing'>Pricing</NavLink>
         </li>
         <li>
-          <NavLink to="/product">Products</NavLink>
+          <NavLink to='/product'>Products</NavLink>
         </li>
       </ul>
     </nav>
@@ -2189,29 +2189,29 @@ export default Pagenav;
 ### App.jsx :
 
 ```js
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Homepage from "../pages/Homepage";
-import Product from "../pages/Product";
-import Pricing from "../pages/Pricing";
-import AppLayout from "../pages/AppLayout";
-import PageNotFound from "../pages/PageNotFound";
-import Login from "../pages/Login";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Homepage from '../pages/Homepage';
+import Product from '../pages/Product';
+import Pricing from '../pages/Pricing';
+import AppLayout from '../pages/AppLayout';
+import PageNotFound from '../pages/PageNotFound';
+import Login from '../pages/Login';
 
 function App() {
   return (
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Homepage />}></Route>
-          <Route path="pricing" element={<Pricing />}></Route>
-          <Route path="product" element={<Product />}></Route>
-          <Route path="login" element={<Login />}></Route>
-          <Route path="app" element={<AppLayout />}>
-            <Route path="cities" element={<p>I am cities</p>}></Route>
-            <Route path="countries" element={<p>I am countries</p>}></Route>
-            <Route path="form" element={<p>I am FORM</p>}></Route>
+          <Route path='/' element={<Homepage />}></Route>
+          <Route path='pricing' element={<Pricing />}></Route>
+          <Route path='product' element={<Product />}></Route>
+          <Route path='login' element={<Login />}></Route>
+          <Route path='app' element={<AppLayout />}>
+            <Route path='cities' element={<p>I am cities</p>}></Route>
+            <Route path='countries' element={<p>I am countries</p>}></Route>
+            <Route path='form' element={<p>I am FORM</p>}></Route>
           </Route>
-          <Route path="*" element={<PageNotFound />}></Route>
+          <Route path='*' element={<PageNotFound />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
@@ -2236,11 +2236,11 @@ export default App;
 ### Sidebar.jsx :
 
 ```js
-import { Outlet } from "react-router-dom";
-import AppNav from "./AppNav";
-import Footer from "./Footer";
-import Logo from "./Logo";
-import styles from "./Sidebar.module.css";
+import { Outlet } from 'react-router-dom';
+import AppNav from './AppNav';
+import Footer from './Footer';
+import Logo from './Logo';
+import styles from './Sidebar.module.css';
 
 function Sidebar() {
   return (
@@ -2269,30 +2269,30 @@ export default Sidebar;
 ### App.jsx :
 
 ```js
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Homepage from "../pages/Homepage";
-import Product from "../pages/Product";
-import Pricing from "../pages/Pricing";
-import AppLayout from "../pages/AppLayout";
-import PageNotFound from "../pages/PageNotFound";
-import Login from "../pages/Login";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Homepage from '../pages/Homepage';
+import Product from '../pages/Product';
+import Pricing from '../pages/Pricing';
+import AppLayout from '../pages/AppLayout';
+import PageNotFound from '../pages/PageNotFound';
+import Login from '../pages/Login';
 
 function App() {
   return (
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Homepage />}></Route>
-          <Route path="pricing" element={<Pricing />}></Route>
-          <Route path="product" element={<Product />}></Route>
-          <Route path="login" element={<Login />}></Route>
-          <Route path="app" element={<AppLayout />}>
+          <Route path='/' element={<Homepage />}></Route>
+          <Route path='pricing' element={<Pricing />}></Route>
+          <Route path='product' element={<Product />}></Route>
+          <Route path='login' element={<Login />}></Route>
+          <Route path='app' element={<AppLayout />}>
             <Route index element={<p>I am INDEX</p>}></Route> {/* Index route */}
-            <Route path="cities" element={<p>I am cities</p>}></Route>
-            <Route path="countries" element={<p>I am countries</p>}></Route>
-            <Route path="form" element={<p>I am FORM</p>}></Route>
+            <Route path='cities' element={<p>I am cities</p>}></Route>
+            <Route path='countries' element={<p>I am countries</p>}></Route>
+            <Route path='form' element={<p>I am FORM</p>}></Route>
           </Route>
-          <Route path="*" element={<PageNotFound />}></Route>
+          <Route path='*' element={<PageNotFound />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
@@ -2369,21 +2369,21 @@ export default App;
 ### Map.jsx :
 
 ```js
-import { useSearchParams } from "react-router-dom";
-import styles from "./Map.module.css";
+import { useSearchParams } from 'react-router-dom';
+import styles from './Map.module.css';
 
 function Map() {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const lat = searchParams.get("lat");
-  const lng = searchParams.get("lng");
+  const lat = searchParams.get('lat');
+  const lng = searchParams.get('lng');
 
-  console.log("searchParams", searchParams);
+  console.log('searchParams', searchParams);
   return (
     <div className={styles.mapContainer}>
       <h1>MAp</h1>
       <h1>
-        {" "}
+        {' '}
         Position :{lat} , {lng}
       </h1>
     </div>
@@ -2398,16 +2398,16 @@ export default Map;
 ### Map.jsx :
 
 ```js
-import { useSearchParams } from "react-router-dom";
-import styles from "./Map.module.css";
+import { useSearchParams } from 'react-router-dom';
+import styles from './Map.module.css';
 
 function Map() {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const lat = searchParams.get("lat");
-  const lng = searchParams.get("lng");
+  const lat = searchParams.get('lat');
+  const lng = searchParams.get('lng');
 
-  console.log("searchParams", searchParams);
+  console.log('searchParams', searchParams);
   return (
     <div className={styles.mapContainer}>
       <h1>MAp</h1>
@@ -2439,19 +2439,19 @@ export default Map;
 ### Map.jsx:
 
 ```js
-import { useNavigate, useSearchParams } from "react-router-dom";
-import styles from "./Map.module.css";
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import styles from './Map.module.css';
 
 function Map() {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const lat = searchParams.get("lat");
-  const lng = searchParams.get("lng");
+  const lat = searchParams.get('lat');
+  const lng = searchParams.get('lng');
   const navigate = useNavigate();
 
-  console.log("searchParams", searchParams);
+  console.log('searchParams', searchParams);
   return (
-    <div className={styles.mapContainer} onClick={() => navigate("form")}>
+    <div className={styles.mapContainer} onClick={() => navigate('form')}>
       <h1>MAp</h1>
       <h1>
         Position :{lat} , {lng}
@@ -2505,7 +2505,7 @@ export default Map;
 ### 12-AUTOMIC-BLOGS ( App.js ) :
 
 ```javascript
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from 'react';
 
 // 1 CREATE CONTEXT
 const PostContext = createContext();
@@ -2528,7 +2528,7 @@ function App() {
 ### 12 - AUTOMIC-BLOGS ( App.js ) :
 
 ```javascript
-import { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from 'react';
 
 // 1 CREATE CONTEXT
 const PostContext = createContext();
@@ -2587,3 +2587,1711 @@ function Header() {
 <img src="Imgaes/state_placement_options.png">
 
 <img src="Imgaes/state_management_tool_options.png">
+
+# Section : 19
+
+## Performance optimization and Advanced useEffect
+
+## Performance Optimization tools :
+
+### Prevent Wasred Renders:
+
+- memo
+
+- useMemo
+
+- useCallback
+
+- Passing elements as children or regular props.
+
+### Improvide App Speed / Responsiveness :
+
+- useMemo
+
+- useCallback.
+
+- useTransition.
+
+### Reduce Bundle Size :
+
+- Using fewer 3rd party packages.
+
+- Code splitting and lazy loading.
+
+## When does a Component instance re-render ?
+
+- A component instance is only get re-render in the threesituations:
+
+  - 1. When State of the component changes.
+
+  - 2. Context which the component subscribed to get changes.
+
+  - 3. Parent component re-renders.
+
+  NOTE: Changing prop will not re-render the component. Only when parent component re-renders then child component re-renders.
+
+  Reminder: A render does not mean that the DOM actualy gets updated, it just means component function gets called. But this can be an expensive operation.
+
+### Wasted Rednder:
+
+- A render that didn't produce any changes in the DOM.
+
+- Only a proble when they happen too frequently or when the component is very slow.
+
+## The Profiler Developer tool:
+
+- The Profiler is the one of the tool avilable in `React Developr Tools` extension.
+
+- Which is allows us to record the application and produce the rendering stasticsfrom the recording.
+
+- The rendering statistics includes each components rendering reasons , time took for render.
+
+- From these analytics we can identify where the application gets lag ( take long time ). So , we can give attenstion to that area inorder to improve the performance of that.
+
+<img src="Imgaes\profiler-screen.png"> <br > <br>
+
+- To view the reasons for re-render, we need to update the setting option as below:
+
+<img src="Imgaes\profiler-highlight-updates-enable.png"> <br > <br>
+
+### Profiler simple usage demo video:
+
+<video width="700" height="500" controls>
+<source src="Videos\profiler-demo-video.mp4" type="video/mp4" >
+</video>
+
+# The surprising optimization trick with Children
+
+### **Notes on Performance Optimization with the `children` Prop**
+
+In this lecture, we explored an interesting performance optimization technique in React. The method leverages the `children` prop to prevent unnecessary re-renders of components, particularly in cases where one component does not depend on the state changes of its parent.
+
+---
+
+### **Key Concepts**
+
+1. **Problem**:
+
+   - A parent component (`Test`) contains a child component (`SlowComponent`) that is resource-intensive (e.g., rendering 100,000 words).
+   - Updating the parent's state causes the entire component tree to re-render, including the `SlowComponent`, even though it does not depend on the parent’s state.
+
+2. **Solution**:
+
+   - Use the `children` prop to pass the `SlowComponent` into a wrapper component (`Counter`).
+   - By doing this, React recognizes that the child component (`SlowComponent`) was created before the parent component re-rendered. This prevents React from re-rendering the child.
+
+3. **Why It Works**:
+   - React optimizes re-renders by identifying that `children` passed to a component are immutable unless explicitly changed.
+   - If the `SlowComponent` doesn’t depend on the parent's state, React skips its re-render.
+
+---
+
+### **Code Examples**
+
+#### **SlowComponent**
+
+This simulates a resource-intensive component by rendering 100,000 words.
+
+```jsx
+// SlowComponent.js
+import React from 'react';
+
+const SlowComponent = () => {
+  const words = Array.from({ length: 100000 }, (_, i) => `Word ${i + 1}`);
+
+  return (
+    <div>
+      {words.map((word, index) => (
+        <span key={index}>{word} </span>
+      ))}
+    </div>
+  );
+};
+
+export default SlowComponent;
+```
+
+---
+
+#### **Counter**
+
+A simple counter component that uses the `children` prop to display any child component passed to it.
+
+```jsx
+// Counter.js
+import React, { useState } from 'react';
+
+const Counter = ({ children }) => {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <h1>Counter: {count}</h1>
+      <button onClick={() => setCount(count + 1)}>Increase Count</button>
+      {children}
+    </div>
+  );
+};
+
+export default Counter;
+```
+
+---
+
+#### **Test Component Before Optimization**
+
+In this version, the `SlowComponent` is directly included in the `Test` component. This causes unnecessary re-renders of `SlowComponent` whenever the `Test` component updates its state.
+
+```jsx
+// Test.js (Before Optimization)
+import React, { useState } from 'react';
+import SlowComponent from './SlowComponent';
+
+const Test = () => {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <h1>Counter: {count}</h1>
+      <button onClick={() => setCount(count + 1)}>Increase Count</button>
+      <SlowComponent />
+    </div>
+  );
+};
+
+export default Test;
+```
+
+---
+
+#### **Test Component After Optimization**
+
+In this optimized version, `SlowComponent` is passed as a child to the `Counter` component. React identifies that the `SlowComponent` is not dependent on state changes in the `Counter` component and skips its re-render.
+
+```jsx
+// Test.js (After Optimization)
+import React from 'react';
+import Counter from './Counter';
+import SlowComponent from './SlowComponent';
+
+const Test = () => {
+  return (
+    <div>
+      <Counter>
+        <SlowComponent />
+      </Counter>
+    </div>
+  );
+};
+
+export default Test;
+```
+
+---
+
+### **Steps to Apply This Optimization**
+
+1. Identify the resource-intensive child component that does not depend on the parent’s state.
+2. Refactor the code to pass the child component as a `children` prop or any other prop.
+3. Ensure the child component is created before the parent re-renders.
+
+---
+
+### **Performance Validation**
+
+- Use React’s profiling tools to confirm that the child component (`SlowComponent`) is no longer re-rendering.
+- Before optimization: The `SlowComponent` re-renders every time the parent updates.
+- After optimization: The `SlowComponent` does not re-render, improving performance significantly.
+
+---
+
+### **Conclusion**
+
+This technique demonstrates React's ability to optimize rendering efficiently when components are passed as props. Although not commonly used, this approach can be valuable in scenarios with resource-intensive child components. By implementing this optimization, you can make your React applications faster and more efficient.
+
+Here’s your updated **React Memoization Notes** with **diagrammatic illustrations** to enhance understanding. 🚀
+
+---
+
+# **Memoization and React Optimization Techniques**
+
+## **Introduction**
+
+In this lecture, we explore three key React tools for optimization:
+
+- **`memo` function** → Memoizes components to prevent unnecessary re-renders.
+- **`useMemo` hook** → Memoizes computed values (e.g., objects, arrays, calculations).
+- **`useCallback` hook** → Memoizes functions to avoid unnecessary re-creations.
+
+The core concept behind these tools is **memoization**, which helps optimize React applications by preventing redundant re-renders.
+
+---
+
+## **What is Memoization?**
+
+### **Definition**
+
+Memoization is an **optimization technique** that ensures a **pure function is executed only once** with the same inputs. Instead of recomputing, it **caches the result** and returns it when called again with the same arguments.
+
+### **How Memoization Works?**
+
+🔹 If the **input changes**, the function executes again.  
+🔹 If the **input remains the same**, it **returns the cached result** without recalculating.
+
+#### **Illustration: Function Memoization**
+
+📌 Without Memoization:  
+Every time `sum(5, 10)` is called, it recalculates.
+
+```
+function sum(a, b) {
+  return a + b;
+}
+sum(5, 10); // Computes 5 + 10
+sum(5, 10); // Computes 5 + 10 again
+```
+
+📌 With Memoization:  
+The result is cached and reused.
+
+```
+const memoizedSum = (function() {
+  const cache = {};
+  return function(a, b) {
+    const key = `${a},${b}`;
+    if (cache[key]) return cache[key];
+    cache[key] = a + b;
+    return cache[key];
+  };
+})();
+memoizedSum(5, 10); // Computes and stores result
+memoizedSum(5, 10); // Returns cached result
+```
+
+---
+
+## **How Memoization Works in React?**
+
+In React, **memoization optimizes rendering** by preventing unnecessary re-renders of components.
+
+🔹 **`memo` function** → Prevents re-rendering when props remain the same.  
+🔹 **`useMemo` hook** → Caches computed values.  
+🔹 **`useCallback` hook** → Caches function references.
+
+### **Illustration: React Re-renders Without Memoization**
+
+🟢 **Parent Component Re-renders** → 🔴 **All Child Components Re-render (Even if Unchanged)**
+
+```
+ParentComponent
+ ├── 🔴 ChildComponentA (Re-renders)
+ ├── 🔴 ChildComponentB (Re-renders)
+ ├── 🔴 ChildComponentC (Re-renders)
+```
+
+### **Illustration: React with `memo` (Optimized)**
+
+🟢 **Parent Component Re-renders** → ✅ **Only Child with Changed Props Re-renders**
+
+```
+ParentComponent
+ ├── ✅ ChildComponentA (No Re-render)
+ ├── 🔴 ChildComponentB (Re-renders)
+ ├── ✅ ChildComponentC (No Re-render)
+```
+
+---
+
+## **The `memo` Function in React**
+
+### **How It Works?**
+
+React's `memo` function **prevents a component from re-rendering** if its props remain unchanged.
+
+📌 **Without `memo`**
+
+- Every time the **parent re-renders**, the child also **re-renders**.
+
+📌 **With `memo`**
+
+- The child **only re-renders if props change**.
+
+### **Example: Using `memo` to Optimize Components**
+
+```jsx
+import React, { memo, useState } from 'react';
+
+const ChildComponent = memo(({ count }) => {
+  console.log('Child Rendered');
+  return <h2>Child Count: {count}</h2>;
+});
+
+const ParentComponent = () => {
+  const [count, setCount] = useState(0);
+  const [otherState, setOtherState] = useState(0);
+
+  return (
+    <div>
+      <button onClick={() => setCount(count + 1)}>Increment Count</button>
+      <button onClick={() => setOtherState(otherState + 1)}>
+        Change Other State
+      </button>
+      <ChildComponent count={count} />
+    </div>
+  );
+};
+
+export default ParentComponent;
+```
+
+### **How It Works?**
+
+1️⃣ When clicking **"Increment Count"**, `count` changes → ✅ `ChildComponent` re-renders.  
+2️⃣ When clicking **"Change Other State"**, `count` is unchanged → ❌ `ChildComponent` does NOT re-render.
+
+---
+
+## **When Should We Use `memo`?**
+
+✅ **Good Use Cases:**  
+✔️ **Heavy components** that cause performance issues.  
+✔️ **Frequently re-rendered components with unchanged props.**  
+✔️ **Lists or UI elements where unnecessary re-renders occur.**
+
+❌ **Avoid `memo` if:**  
+❌ The component’s props **change often** → No effect.  
+❌ The component **rarely re-renders** → No benefit.  
+❌ The component is **lightweight** → Memoization overhead may slow performance.
+
+### **Illustration: When `memo` is Useful?**
+
+| Condition             | Use `memo`? |
+| --------------------- | ----------- |
+| Heavy component       | ✅ Yes      |
+| Frequent re-renders   | ✅ Yes      |
+| Rarely changing props | ✅ Yes      |
+| Always changing props | ❌ No       |
+| Lightweight component | ❌ No       |
+
+---
+
+## **Important Considerations**
+
+📌 **Memoization Only Affects Props**  
+🔹 A memoized component **still re-renders** if:
+
+- **State changes** within the component.
+- The component subscribes to **context changes**.
+
+### **Illustration: When Memoized Components Still Re-render**
+
+```
+ParentComponent
+ ├── ✅ ChildComponentA (No Re-render - Props Unchanged)
+ ├── 🔴 ChildComponentB (Re-renders - Props Changed)
+ ├── 🔴 ChildComponentC (Re-renders - State Changed)
+```
+
+---
+
+## **Conclusion**
+
+✅ **Memoization improves React performance by preventing unnecessary re-renders.**  
+✅ **Use `memo` for performance-critical components** that frequently re-render with the same props.  
+✅ **Combine `memo` with `useMemo` and `useCallback`** for deeper optimizations.
+
+### **Next Steps**
+
+In the next lecture, we will see `useMemo` and `useCallback` in action to optimize function and object references! 🚀
+
+### **React Component Memoization - Lecture Notes**
+
+---
+
+## **Introduction to Memoization**
+
+- Memoization is a performance optimization technique in React.
+- It prevents unnecessary re-renders by remembering the last-rendered output of a component.
+- This is useful when dealing with heavy components that do not need to update frequently.
+
+---
+
+## **Understanding the Problem (Before Memoization)**
+
+### **Scenario**
+
+- We have an `Archive` component that generates **10,000+ random posts** and stores them in a state.
+- The `App` component has a **search bar** where users can type to filter posts.
+- Every time the user types, the **entire `Archive` component re-renders**, causing lag.
+
+### **Symptoms of Performance Issues**
+
+- Typing in the search bar introduces a noticeable delay (half a second per keystroke).
+- The **React Profiler** shows that `Archive` re-renders on every keystroke.
+- Rendering the `Archive` component takes **130+ milliseconds** each time.
+
+### **Why is This Happening?**
+
+- The `Archive` component is a **child of `App`**, and `App` contains state (`searchQuery`).
+- **Any state change in `App` causes all child components to re-render**, including `Archive`.
+- The `Archive` component does not depend on `searchQuery`, yet it still re-renders.
+
+---
+
+## **Optimizing with `React.memo`**
+
+### **What is `React.memo`?**
+
+- `React.memo()` is a higher-order component (HOC) that **memorizes** a component.
+- It ensures that the component only re-renders **if its props change**.
+- If the props **remain the same**, React reuses the last rendered output instead of re-rendering.
+
+### **Applying `React.memo` to `Archive`**
+
+- Wrap the `Archive` component with `React.memo()`:
+
+```jsx
+import { memo } from 'react';
+
+const Archive = memo(function Archive({ onAddPost }) {
+  const [posts] = useState(() =>
+    Array.from({ length: 10000 }, () => createRandomPost())
+  );
+
+  const [showArchive, setShowArchive] = useState(false);
+
+  return (
+    <aside>
+      <h2>Post archive</h2>
+      <button onClick={() => setShowArchive((s) => !s)}>
+        {showArchive ? 'Hide archive posts' : 'Show archive posts'}
+      </button>
+
+      {showArchive && (
+        <ul>
+          {posts.map((post, i) => (
+            <li key={i}>
+              <p>
+                <strong>{post.title}:</strong> {post.body}
+              </p>
+            </li>
+          ))}
+        </ul>
+      )}
+    </aside>
+  );
+});
+```
+
+### **Breaking It Down**
+
+1. **Imported `memo` from React** → `import { memo } from "react";`
+2. **Wrapped `Archive` inside `memo()`** → `const Archive = memo(function Archive({...})`
+3. **Now, `Archive` will only re-render if its props (`onAddPost`) change.**
+
+---
+
+## **Verifying the Performance Improvement**
+
+### **Before Memoization:**
+
+- **Typing delay:** Noticeable lag (half a second per keystroke).
+- **Profiler result:** `Archive` **re-renders** every time the search state updates.
+
+### **After Memoization:**
+
+- **Typing is now smooth.**
+- **Profiler result:** `Archive` **does not re-render** unless its `props` change.
+
+### **Why Did This Work?**
+
+- The `Archive` component **only re-renders when its `props` change**.
+- Since `searchQuery` **does not affect `Archive`**, it remains unchanged and avoids unnecessary renders.
+
+---
+
+## **Key Takeaways**
+
+✅ **React.memo() helps optimize performance by preventing unnecessary re-renders.**  
+✅ **Useful for components that are expensive to render and don’t change frequently.**  
+✅ **Best used when the component receives the same props on re-renders.**  
+✅ **Use React Profiler to measure performance before and after memoization.**
+
+---
+
+### **Final Thoughts**
+
+- Memoization is not always necessary. Only use it for performance-critical components.
+- Avoid using `React.memo` on **components that frequently receive new props** (e.g., lists with dynamic data).
+- Consider using **useMemo** or **useCallback** for optimizing child functions and derived values.
+
+---
+
+This concludes the memoization lecture. 🚀
+
+### **Understanding `useMemo` and `useCallback` - Lecture Notes**
+
+---
+
+## **Why `React.memo` Didn't Work as Expected?**
+
+### **Recap from the Last Lecture:**
+
+- We used `React.memo` to prevent unnecessary re-renders.
+- However, in some cases, **it didn’t work as expected.**
+- **Why?** → Because **functions and objects are recreated** on each render.
+
+---
+
+## **Key Concepts: Why Objects & Functions Cause Re-renders**
+
+### **1️⃣ React Recreates Everything on Re-renders**
+
+- Whenever a component re-renders, **all values inside it are recreated.**
+- This includes:  
+  ✅ Objects  
+  ✅ Functions
+
+### **2️⃣ JavaScript Treats Objects & Functions as New Every Time**
+
+- In JavaScript, two objects that look the same **are still different**:
+
+  ```js
+  console.log({} === {}); // false
+  console.log(() => {} === () => {}); // false
+  ```
+
+- **Even if two functions or objects contain the same code, they are considered different.**
+
+### **3️⃣ Why `React.memo` Fails?**
+
+- If we **pass an object or function as a prop**, React sees it as a **new value** on every render.
+- Since `React.memo` only prevents re-renders when **props are the same**, it fails in these cases.
+
+**Example:**
+
+- Parent component re-renders → function inside the parent is recreated → child component sees it as a new prop → child re-renders.
+
+---
+
+## **Solution: Stabilizing Values with `useMemo` and `useCallback`**
+
+### **React’s Memoization Hooks**
+
+1️⃣ **`useMemo`** → Memorizes **values** across renders.  
+2️⃣ **`useCallback`** → Memorizes **functions** across renders.
+
+#### **🔹 Why Use These Hooks?**
+
+- They **cache values/functions** across renders, so React doesn't recreate them unless needed.
+- **Works similarly to `React.memo` but for values/functions.**
+- Prevents unnecessary re-renders.
+
+---
+
+## **How `useMemo` Works**
+
+### **Concept:**
+
+- `useMemo` stores a **cached value** and **only recalculates it when dependencies change.**
+
+### **Syntax:**
+
+```js
+const memoizedValue = useMemo(() => computeExpensiveValue(data), [data]);
+```
+
+- ✅ `computeExpensiveValue(data)` runs **only when `data` changes.**
+- ✅ On re-renders, React **returns the cached value** instead of recalculating.
+
+### **Use Case: Preventing Expensive Recalculations**
+
+```js
+const sortedPosts = useMemo(() => {
+  console.log('Sorting posts...');
+  return posts.sort((a, b) => a.title.localeCompare(b.title));
+}, [posts]);
+```
+
+- ✅ If `posts` **does not change**, React **does not re-sort** the list.
+- ✅ Improves performance when working with **large datasets.**
+
+---
+
+## **How `useCallback` Works**
+
+### **Concept:**
+
+- `useCallback` stores a **cached function** and **only recreates it when dependencies change.**
+
+### **Syntax:**
+
+```js
+const memoizedFunction = useCallback(() => {
+  console.log('Function executed');
+}, [dependency]);
+```
+
+- ✅ React **remembers the function** and **only re-creates it when `dependency` changes.**
+
+### **Use Case: Preventing Child Re-renders**
+
+#### **🔹 Problem: Function Causing Unnecessary Re-renders**
+
+```js
+const handleClick = () => {
+  console.log('Button clicked!');
+};
+
+// Passed to a child component
+<Child onClick={handleClick} />;
+```
+
+🚨 **Issue:** Every re-render creates a **new `handleClick` function**, so the child **always re-renders.**
+
+#### **✅ Solution: Use `useCallback` to Stabilize the Function**
+
+```js
+const handleClick = useCallback(() => {
+  console.log('Button clicked!');
+}, []);
+
+<Child onClick={handleClick} />;
+```
+
+- ✅ `handleClick` **remains the same** across renders → **Child doesn’t re-render unnecessarily.**
+
+---
+
+## **Key Differences Between `useMemo` and `useCallback`**
+
+| Hook              | Purpose                 | Returns               |
+| ----------------- | ----------------------- | --------------------- |
+| **`useMemo`**     | Memorizes **values**    | A cached **value**    |
+| **`useCallback`** | Memorizes **functions** | A cached **function** |
+
+**🔹 `useCallback(fn, deps)` is equivalent to `useMemo(() => fn, deps)`.**
+
+---
+
+## **Other Use Cases for `useMemo` & `useCallback`**
+
+### **1️⃣ Avoiding Infinite Loops in `useEffect`**
+
+- When passing a function to `useEffect`, React **re-runs the effect if the function is different.**
+- Using `useCallback` prevents this issue.
+
+### **2️⃣ Optimizing Context & Redux Selectors**
+
+- `useMemo` prevents unnecessary recalculations when **deriving state** from Redux or Context API.
+
+### **3️⃣ Preventing Unnecessary Prop Updates**
+
+- Useful in large applications where child components should only update when necessary.
+
+---
+
+## **Best Practices & When to Use These Hooks**
+
+✅ **Use `useMemo`** when:
+
+- You have an **expensive calculation** that shouldn't run on every render.
+- You need to **keep a derived value stable** (e.g., sorting/filtering lists).
+
+✅ **Use `useCallback`** when:
+
+- You're passing a **function as a prop** to a child component that **shouldn’t re-render unnecessarily**.
+- You need to **prevent functions from changing on every render**.
+
+🚨 **Don't Overuse These Hooks!**
+
+- **Only use them if performance issues exist.**
+- **Unnecessary memoization can actually slow down your app.**
+
+---
+
+## **Summary**
+
+🔹 **`React.memo` prevents child re-renders but fails if props contain functions/objects.**  
+🔹 **React recreates functions & objects on each render, causing unnecessary updates.**  
+🔹 **`useMemo` caches values, preventing unnecessary recalculations.**  
+🔹 **`useCallback` caches functions, preventing unnecessary re-creations.**  
+🔹 **Use them wisely—only when they genuinely improve performance.**
+
+---
+
+This concludes our lecture on **`useMemo` and `useCallback`**! 🚀
+
+### **Lecture Notes: useMemo in Practice**
+
+#### **Fixing the Memoization Issue with useMemo**
+
+In the `App` component, we initially encountered a **performance issue** when passing an **object** as a prop to the `Archive` component.
+
+- **Issue:**
+  - The `archiveOptions` object was **recreated on every re-render** of `App`.
+  - Since objects are reference types, React considered it a **new object** on every render, causing `Archive` (even wrapped in `memo`) to **re-render unnecessarily**.
+  - This led to **performance problems**, especially since `Archive` contained a large number of posts (20,000).
+
+---
+
+#### **Using useMemo to Fix the Issue**
+
+To prevent `archiveOptions` from being recreated on every render, we used the `useMemo` hook:
+
+```js
+const archiveOptions = useMemo(() => {
+  return {
+    show: false,
+    title: `Post archive in addition to main ${posts.length} posts`,
+  };
+}, [posts.length]);
+```
+
+**How it works:**
+
+- `useMemo` **caches the value** of `archiveOptions` until `posts.length` changes.
+- The `title` updates **only when the number of posts changes**, reducing unnecessary re-renders.
+- `Archive` no longer re-renders when typing in the search bar or toggling dark mode.
+
+---
+
+#### **Verifying the Fix**
+
+After applying `useMemo`, using the React Profiler confirmed:  
+✅ The `Archive` component **does not re-render unnecessarily**.  
+✅ The app remains **smooth and responsive** while typing or interacting.
+
+---
+
+#### **Handling Derived State Properly**
+
+- In the `Archive` component, we have:
+  ```js
+  const [showArchive, setShowArchive] = useState(archiveOptions.show);
+  ```
+  - The initial value of `showArchive` comes from `archiveOptions.show`.
+  - **However, state does not update when props change** unless explicitly handled.
+  - If the `archiveOptions.show` value updates in `App`, `showArchive` in `Archive` **remains unchanged**.
+
+---
+
+#### **Adding Dependencies to useMemo**
+
+- `useMemo` is useful when a value **depends on certain state variables** but shouldn't update on every render.
+- Example with a **dependency on `posts.length`**:
+  ```js
+  const archiveOptions = useMemo(() => {
+    return {
+      show: false,
+      title: `Post archive in addition to main ${posts.length} posts`,
+    };
+  }, [posts.length]);
+  ```
+  - This ensures `archiveOptions` updates **only when `posts.length` changes**.
+
+---
+
+#### **Performance Considerations**
+
+- **Before optimization:**
+  - The `Archive` component **re-rendered on every render of `App`**, even when not needed.
+- **After using `useMemo`:**
+  - `Archive` **only re-renders when `posts.length` changes**.
+- **Tradeoff:**
+  - `useMemo` has a small computational cost.
+  - It should **only be used when preventing unnecessary re-renders is crucial**.
+
+---
+
+### **Key Takeaways**
+
+✅ `useMemo` **stabilizes values** across renders, improving performance.  
+✅ **Use dependencies** in `useMemo` to prevent stale values.  
+✅ Avoid using `useMemo` **unnecessarily**, as it has a computation cost.
+
+---
+
+### **Summary: Optimizing Context Re-renders in React**
+
+This lecture covers strategies to prevent unnecessary re-renders caused by the Context API. Optimization is needed only if:
+
+1. The context state changes frequently.
+2. The context has multiple consumers.
+3. The app becomes slow and laggy.
+
+Key strategies include:
+
+- **Memoization** of context values using `useMemo`.
+- **Memoization of child components** with `React.memo`.
+- **Avoiding unnecessary context updates** by structuring context properly.
+- **Splitting context** into multiple contexts for better efficiency.
+- **Using `useCallback` for functions** inside the context to avoid recreations.
+
+---
+
+### **Point-by-Point Notes**
+
+#### **1. When to Optimize Context API?**
+
+- Optimize only if **all three** of the following are true:
+  - The **context state changes frequently**.
+  - There are **multiple consumers** of the context.
+  - The **application performance is slow**.
+
+#### **2. Memoization Techniques for Optimizing Context**
+
+##### **2.1 Avoid Automatic Re-renders with `children` Prop**
+
+- Wrapping children inside the provider prevents unnecessary re-renders.
+- Example:
+  ```jsx
+  <PostProvider>
+    <AppContent />
+  </PostProvider>
+  ```
+  - `AppContent` is passed as `children`, preventing it from re-rendering when context updates.
+
+##### **2.2 Use `React.memo` for Direct Children of Context Provider**
+
+- **If children re-render unnecessarily, wrap them in `React.memo()`.**
+- Example:
+  ```jsx
+  const MemoizedMain = React.memo(Main);
+  ```
+- **Use case:** When components inside the provider don’t depend on context changes but still re-render.
+
+#### **3. Handling Re-renders When State Updates Above the Provider**
+
+##### **3.1 Why Does the Context Cause Re-renders?**
+
+- If the provider's `value` is an **object**, it is recreated on each render, causing re-renders.
+- **Solution:** Use `useMemo` to prevent unnecessary object recreations.
+
+##### **3.2 Use `useMemo` to Optimize Context Value**
+
+- **Problem:** Object values cause re-renders.
+- **Solution:** Wrap the context `value` inside `useMemo`.
+  ```jsx
+  const value = useMemo(
+    () => ({
+      posts,
+      searchQuery,
+      addPost,
+      setSearchQuery,
+    }),
+    [posts, searchQuery, addPost]
+  );
+  ```
+- **This prevents context re-renders when unrelated state updates happen.**
+
+##### **3.3 Using `useCallback` for Context Functions**
+
+- **Problem:** Functions inside context get recreated on every render.
+- **Solution:** Wrap functions with `useCallback`.
+  ```jsx
+  const handleAddPost = useCallback((newPost) => {
+    setPosts((prevPosts) => [...prevPosts, newPost]);
+  }, []);
+  ```
+- **Ensure functions inside `useMemo` are also memoized with `useCallback`.**
+
+#### **4. Using Multiple Contexts to Optimize Performance**
+
+##### **4.1 Why Split Context?**
+
+- If a single context holds multiple state values, changing **one value** will re-render **all consumers**.
+- **Example:**
+  ```jsx
+  <PostContext.Provider value={posts}>
+    <SearchContext.Provider value={searchQuery}>
+      <App />
+    </SearchContext.Provider>
+  </PostContext.Provider>
+  ```
+- **This ensures:**
+  - Components consuming `PostContext` do **not** re-render when `searchQuery` updates.
+  - Components consuming `SearchContext` do **not** re-render when `posts` update.
+
+##### **4.2 Advanced Optimization: Splitting State and Actions into Separate Contexts**
+
+- **Separate Contexts for State and Functions:**
+
+  ```jsx
+  const PostStateContext = React.createContext();
+  const PostDispatchContext = React.createContext();
+
+  function PostProvider({ children }) {
+    const [posts, setPosts] = useState([]);
+
+    return (
+      <PostStateContext.Provider value={posts}>
+        <PostDispatchContext.Provider value={setPosts}>
+          {children}
+        </PostDispatchContext.Provider>
+      </PostStateContext.Provider>
+    );
+  }
+  ```
+
+- **Benefits:**
+  - **Only state consumers re-render when state updates.**
+  - **Only function consumers re-render when dispatch updates.**
+
+---
+
+### **Diagrams & Illustrations**
+
+#### **1. Context Re-render Problem (Before Optimization)**
+
+📌 **Problem:** Every consumer re-renders when any state inside context changes.
+
+```
+App.js
+ ├── PostProvider (Context)
+ │   ├── Header (Re-renders)
+ │   ├── Main (Re-renders)
+ │   ├── Footer (Re-renders)
+```
+
+**🔴 Issue:** Updating `searchQuery` will re-render `Main`, `Header`, and `Footer`.
+
+---
+
+#### **2. Context Optimization (Using Multiple Contexts)**
+
+📌 **Solution:** Separate contexts for `posts` and `searchQuery`.
+
+```
+App.js
+ ├── PostProvider (Context for Posts)
+ │   ├── PostsList (Re-renders only if posts change)
+ │
+ ├── SearchProvider (Context for Search Query)
+ │   ├── SearchBar (Re-renders only if searchQuery changes)
+```
+
+✅ **Now, updating `searchQuery` will not re-render `PostsList`!**
+
+---
+
+### **Final Takeaways**
+
+✔ **Use `children` inside Provider to prevent automatic re-renders.**  
+✔ **Use `React.memo` for direct children of the provider.**  
+✔ **Wrap context `value` in `useMemo` to prevent unnecessary re-renders.**  
+✔ **Wrap context functions in `useCallback` to avoid function recreation.**  
+✔ **Use multiple contexts for different state values to prevent over-rendering.**  
+✔ **For advanced optimization, split state and actions into separate contexts.**
+
+Would you like me to generate a code sandbox for a working example? 🚀
+
+### **Optimizing Bundle Size with Code Splitting in React**
+
+#### **Summary with Step-by-Step Implementation and Diagrams**
+
+---
+
+### **Understanding Bundle Size and Code Splitting**
+
+1. When a user visits a React application, a **single large JavaScript bundle** is downloaded.
+2. This bundle contains the **entire application code**, making initial load times **longer**.
+3. **Code Splitting** breaks this large file into **smaller chunks**, which are downloaded **only when needed**.
+4. This is done using **React's `lazy()` function** and **JavaScript's dynamic `import()`**.
+5. **Lazy loading components** at the **route level** ensures that only the required components are downloaded when a user navigates to a page.
+6. **React’s `Suspense` API** is used to show a **loading indicator** while components are being fetched.
+
+---
+
+### **Diagram Representation of Bundle Optimization**
+
+#### **Before Code Splitting (Single Large Bundle)**
+
+📂 **Build Folder**
+
+- `bundle.js` **(600 KB, containing all components at once)**
+
+```plaintext
+    ----------------------
+    |   Entire App Code  |  ---> Downloaded at once (~600 KB)
+    ----------------------
+```
+
+---
+
+#### **After Code Splitting (Smaller Lazy Loaded Chunks)**
+
+📂 **Build Folder**
+
+- `bundle.js` **(Base App)**
+- `Homepage.chunk.js`
+- `Product.chunk.js`
+- `Pricing.chunk.js`
+- `AppLayout.chunk.js`
+- `Login.chunk.js`
+
+```plaintext
+    ----------------------         ----------------------         ----------------------
+    |    Base App Code   |  --->  |   Homepage Code    |  --->  |   Product Code    |
+    ----------------------         ----------------------         ----------------------
+         (Initial Load)               (On Homepage Visit)         (On Product Page Visit)
+```
+
+✅ **Smaller initial bundle, faster page loads, better performance!**
+
+---
+
+### **Before Optimization: Regular Imports (Large Bundle)**
+
+**📌 `App.jsx` (Before Lazy Loading)**
+
+```jsx
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Homepage from '../pages/Homepage';
+import Product from '../pages/Product';
+import Pricing from '../pages/Pricing';
+import AppLayout from '../pages/AppLayout';
+import PageNotFound from '../pages/PageNotFound';
+import Login from '../pages/Login';
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Homepage />} />
+        <Route path='pricing' element={<Pricing />} />
+        <Route path='product' element={<Product />} />
+        <Route path='login' element={<Login />} />
+        <Route path='app' element={<AppLayout />} />
+        <Route path='*' element={<PageNotFound />} />
+      </Routes>
+    </BrowserRouter>
+  );
+}
+
+export default App;
+```
+
+### **Issues Before Optimization**
+
+❌ **Large bundle size** (600 KB)  
+❌ **All components load even if the user never visits those pages**  
+❌ **Slow initial load time**
+
+---
+
+## **Step-by-Step Code Splitting Implementation**
+
+### **Step 1: Use `React.lazy()` for Lazy Loading Components**
+
+Modify imports in `App.jsx`:
+
+```jsx
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
+
+// Lazy loading components
+const Homepage = lazy(() => import('../pages/Homepage'));
+const Product = lazy(() => import('../pages/Product'));
+const Pricing = lazy(() => import('../pages/Pricing'));
+const AppLayout = lazy(() => import('../pages/AppLayout'));
+const PageNotFound = lazy(() => import('../pages/PageNotFound'));
+const Login = lazy(() => import('../pages/Login'));
+
+// Loading Indicator
+const Loading = () => <div>Loading...</div>;
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Suspense fallback={<Loading />}>
+        <Routes>
+          <Route path='/' element={<Homepage />} />
+          <Route path='pricing' element={<Pricing />} />
+          <Route path='product' element={<Product />} />
+          <Route path='login' element={<Login />} />
+          <Route path='app' element={<AppLayout />} />
+          <Route path='*' element={<PageNotFound />} />
+        </Routes>
+      </Suspense>
+    </BrowserRouter>
+  );
+}
+
+export default App;
+```
+
+---
+
+### **Step 2: Build the Application (`npm run build`)**
+
+📌 Run the command:
+
+```sh
+npm run build
+```
+
+✅ **Before Optimization**: Single **600 KB** bundle  
+✅ **After Optimization**: Multiple chunks **(~100 KB each)**
+
+---
+
+### **Step 3: Verify Code Splitting in DevTools**
+
+1. **Open Chrome DevTools (F12) > Network > JS**
+2. **Enable "Slow 3G" throttling**
+3. **Navigate to different pages**
+4. **Observe smaller JavaScript files being loaded dynamically**
+
+---
+
+### **Final Outcome**
+
+✅ **Smaller Initial Bundle** → Faster First Load  
+✅ **Lazy Loaded Components** → Download Only When Needed  
+✅ **Better Performance & SEO**
+
+---
+
+### **Conclusion**
+
+🚀 **Always use Code Splitting in large React apps to improve performance and optimize bundle size!** 🚀
+
+### **Lecture Notes: "Don't Optimize Prematurely"**
+
+#### **Key Takeaways:**
+
+- Avoid optimizing React applications unnecessarily.
+- Optimize only when there is a visible performance issue.
+- Premature optimization can degrade performance rather than improve it.
+- Use React’s built-in tools (Profiler) to detect bottlenecks instead of blindly using memoization techniques.
+
+---
+
+### **📌 Do’s and Don’ts of Performance Optimization in React**
+
+#### **❌ Don'ts: Avoid Premature Optimization**
+
+1. **Do not optimize when there is nothing to optimize.**
+
+   - If the app is performing well, avoid unnecessary optimizations.
+
+2. **Avoid wrapping everything in `React.memo`, `useMemo`, or `useCallback`.**
+
+   - Unnecessary memoization can negatively impact performance.
+
+3. **No need to optimize Context API if:**
+
+   - It is not slow.
+   - It does not have many consumers.
+
+4. **Excessive memoization can:**
+   - Reduce performance (each memoization adds computation overhead).
+   - Make code unreadable and messy.
+
+---
+
+#### **✅ Do’s: Optimize When Needed**
+
+1. **Find actual performance bottlenecks.**
+
+   - Use the **React Profiler** tool.
+   - Identify laggy UI visually.
+
+2. **Optimize re-renders when necessary.**
+
+   - Use `React.memo` for expensive re-renders.
+   - Use `useMemo` and `useCallback` for computationally heavy logic.
+
+3. **Optimizing Context API only when:**
+
+   - There are many consumers.
+   - State updates frequently, leading to unnecessary renders.
+   - Use solutions like:
+     - Memoizing context values.
+     - Memoizing direct child components of the provider.
+     - Splitting context into **two separate contexts**:
+       - One for state values.
+       - One for state updates.
+
+4. **Implement Code Splitting & Lazy Loading.**
+   - **Always** use dynamic imports (`React.lazy` & `Suspense`) for large components.
+   - Optimize route-based loading for Single Page Applications (SPAs).
+
+---
+
+### **📝 Diagrammatic Illustration**
+
+#### **🔹 The Problem with Unnecessary Memoization**
+
+```plaintext
+❌ Bad Practice: Unnecessary Memoization
+----------------------------------------
+Component A
+   ├── MemoizedComponent B (React.memo) ❌
+   ├── MemoizedComponent C (useMemo) ❌
+   ├── MemoizedFunction D (useCallback) ❌
+----------------------------------------
+Even though these optimizations exist, they may not be needed!
+```
+
+```plaintext
+✅ Good Practice: Optimize Only When Necessary
+----------------------------------------
+Component A
+   ├── Component B (Normal)
+   ├── Component C (Memoized only if expensive) ✅
+   ├── Component D (useCallback only if function causes re-renders) ✅
+----------------------------------------
+Optimization applied *only* where required!
+```
+
+---
+
+### **Final Thoughts**
+
+- **Optimization should be based on real performance issues, not assumptions.**
+- **Blindly optimizing can degrade performance instead of improving it.**
+- **Always use proper debugging tools before applying optimizations.**
+
+Would you like me to include any more visual representations? 😊
+
+### **📌 useEffect Rules & Best Practices - Summary & Notes**
+
+The `useEffect` Hook is one of the most confusing aspects of React for beginners. This lecture clarifies its best practices and dependency management.
+
+---
+
+## **🚀 Rules & Best Practices of `useEffect`**
+
+### **1️⃣ Every reactive value used in `useEffect` must be in the dependency array**
+
+- A **reactive value** includes:
+  - ✅ **State variables** (`useState`)
+  - ✅ **Props**
+  - ✅ **Context values**
+  - ✅ **Other values that depend on reactive values** (e.g., computed variables)
+- If a reactive value is missing, it can lead to **stale closures** (i.e., using outdated values).
+
+📌 **Example:**
+
+```jsx
+useEffect(() => {
+  console.log(`User is now: ${user.name}`);
+}, [user]); // ✅ user is a reactive value, must be included
+```
+
+🔴 **Wrong Example (Stale Closure Issue):**
+
+```jsx
+useEffect(() => {
+  console.log(`User is now: ${user.name}`);
+}, []); // ❌ user is not in dependencies, stale closure risk
+```
+
+---
+
+### **2️⃣ Do NOT ignore ESLint warnings about missing dependencies**
+
+- ESLint helps identify missing dependencies.
+- Always **understand** why a dependency is needed instead of blindly following the linter.
+- **In environments without a linter**, knowing these rules is crucial.
+
+---
+
+### **3️⃣ Avoid using objects or arrays as dependencies**
+
+- Objects/arrays **always have a new reference** on each render.
+- This causes `useEffect` to run on **every render**, even if content is the same.
+
+📌 **Wrong Example (Effect runs on every render)**:
+
+```jsx
+const obj = { name: 'John' }; // New reference every time
+useEffect(() => {
+  console.log('Effect runs');
+}, [obj]); // ❌ Causes re-execution on every render
+```
+
+✅ **Fix: Extract primitive values**
+
+```jsx
+useEffect(() => {
+  console.log('Effect runs');
+}, [obj.name]); // ✅ Only dependent on a primitive value
+```
+
+---
+
+### **4️⃣ Strategies to Reduce Unnecessary Dependencies**
+
+If including every dependency makes `useEffect` run too often, try these strategies:
+
+#### **🔹 (a) Move functions inside `useEffect`**
+
+- If a function is only used inside `useEffect`, move it inside.
+
+📌 **Example:**
+
+```jsx
+useEffect(() => {
+  const fetchData = async () => {
+    const res = await fetch('https://api.example.com');
+    console.log(await res.json());
+  };
+  fetchData();
+}, []); // ✅ No external function dependency
+```
+
+---
+
+#### **🔹 (b) Use `useCallback` to memoize functions**
+
+- If a function is used in multiple places, memoize it with `useCallback`.
+
+📌 **Example:**
+
+```jsx
+const fetchData = useCallback(() => {
+  fetch('/api/data').then((res) => res.json());
+}, []); // ✅ Function is stable, doesn't cause re-renders
+
+useEffect(() => {
+  fetchData();
+}, [fetchData]); // ✅ `fetchData` is memoized
+```
+
+---
+
+#### **🔹 (c) Use `useReducer` for complex state dependencies**
+
+- When multiple reactive values change together, use `useReducer`.
+
+📌 **Example:**
+
+```jsx
+const reducer = (state, action) => {
+  switch (action.type) {
+    case 'increment':
+      return { count: state.count + 1 };
+    default:
+      return state;
+  }
+};
+
+const [state, dispatch] = useReducer(reducer, { count: 0 });
+
+useEffect(() => {
+  console.log(`Count changed to ${state.count}`);
+}, [state.count]); // ✅ More controlled than multiple useEffects
+```
+
+---
+
+#### **🔹 (d) Avoid setting state inside `useEffect` unless necessary**
+
+- Setting state inside `useEffect` can cause multiple re-renders.
+- Use **derived state** when possible.
+
+📌 **Bad Example:**
+
+```jsx
+useEffect(() => {
+  setFilteredData(data.filter((item) => item.active));
+}, [data]); // ❌ Causes unnecessary re-renders
+```
+
+✅ **Better Approach (Derived State):**
+
+```jsx
+const filteredData = data.filter((item) => item.active); // ✅ No need for `useEffect`
+```
+
+---
+
+### **5️⃣ When NOT to use `useEffect`**
+
+Many beginners **overuse** `useEffect`. Here are common cases where it **should NOT be used**:
+
+| 🚫 **Bad Usage**                                          | ✅ **Better Alternative**                  |
+| --------------------------------------------------------- | ------------------------------------------ |
+| **Responding to user events** (e.g., click, input change) | Use **event handlers** instead of effects  |
+| **Fetching data on mount**                                | Use **React Query** instead of `useEffect` |
+| **Syncing one state with another**                        | Use **derived state** instead              |
+
+📌 **Example:**
+❌ **Wrong Approach (Using `useEffect` for state sync)**:
+
+```jsx
+const [count, setCount] = useState(0);
+const [doubleCount, setDoubleCount] = useState(0);
+
+useEffect(() => {
+  setDoubleCount(count * 2);
+}, [count]); // ❌ Unnecessary effect, causes extra renders
+```
+
+✅ **Better Approach (Derived State)**:
+
+```jsx
+const doubleCount = count * 2; // ✅ No need for `useEffect`
+```
+
+---
+
+## **📌 Summary & Key Takeaways**
+
+✔ Always include **all reactive values** in the dependency array.  
+✔ **Do NOT ignore ESLint warnings**—understand them instead.  
+✔ **Avoid using objects/arrays as dependencies** (extract primitives).  
+✔ If an effect runs too often:
+
+- Move functions inside `useEffect`
+- Use `useCallback`
+- Use `useReducer` for complex states  
+  ✔ **Don’t overuse `useEffect`**—use event handlers, derived state, or React Query instead.
+
+---
+
+## **📌 Diagram for Better Understanding**
+
+Here's a **flowchart** on `useEffect` dependency rules and optimizations:
+
+```plaintext
+                      +-----------------------------+
+                      |   Using useEffect?          |
+                      +-----------------------------+
+                                  |
+                                  v
+              +--------------------------------+
+              | Are you using all reactive values? |
+              +--------------------------------+
+                  |   Yes                        | No
+                  v                              v
+  +--------------------------------+   +-------------------------+
+  | Include them in dependency array | Identify missing values  |
+  | ✔ State, Props, Context          | and add them             |
+  +--------------------------------+   +-------------------------+
+                  |
+                  v
+  +----------------------------------+
+  | Are objects/arrays in dependencies? |
+  +----------------------------------+
+        | Yes                  | No
+        v                       v
+  +---------------------+   +----------------------+
+  | Extract primitive values | UseEffect is optimized |
+  +---------------------+   +----------------------+
+```
+
+---
+
+## **📌 Conclusion**
+
+Understanding `useEffect` rules **prevents performance issues** and **avoids unnecessary re-renders**. Follow best practices to ensure efficient React components!
+
+Do you need further clarification on any specific part? 🚀
+
+### **Closures in `useEffect` (Avoiding Stale Closures)**
+
+In this lecture, we will dive deeper into **closures** in JavaScript, their impact on React's `useEffect`, and how to avoid stale closures.
+
+---
+
+## **1️⃣ Understanding Closures in JavaScript**
+
+A **closure** occurs when a function **remembers** the variables from its **lexical scope** even when executed outside of that scope.
+
+### **🔹 How Closures Work**
+
+When a function is defined, it **closes over** (captures) the variables in its surrounding scope at that moment.
+
+```js
+function outerFunction() {
+  let count = 0;
+
+  function innerFunction() {
+    console.log(count); // Always remembers 'count'
+  }
+
+  return innerFunction;
+}
+
+const myFunc = outerFunction();
+myFunc(); // Prints: 0 (remembers the original 'count' value)
+```
+
+> 🛑 Even if `count` changes later in the outer scope, `innerFunction` still holds onto the old value due to closure.
+
+---
+
+## **2️⃣ Closures in `useEffect`**
+
+React hooks, including `useEffect`, heavily rely on closures.
+
+### **🔹 Why `useEffect` Needs a Dependency Array**
+
+Since closures **remember old values**, `useEffect` functions can hold outdated state and props, causing bugs. The dependency array informs React **when to refresh the function's snapshot**.
+
+### **🔹 Example of Stale Closure**
+
+Consider this example where we update the document title based on a state variable:
+
+```jsx
+import { useState, useEffect } from 'react';
+
+function WorkoutApp() {
+  const [exercises, setExercises] = useState(9);
+
+  useEffect(() => {
+    console.log('Effect running...');
+    document.title = `Your ${exercises} exercise workout`;
+  }, []); // ⛔ Empty array causes stale closure
+
+  return (
+    <div>
+      <p>Exercises: {exercises}</p>
+      <button onClick={() => setExercises(exercises + 1)}>Add Exercise</button>
+    </div>
+  );
+}
+```
+
+### **🚨 Issue: The title does not update**
+
+- `useEffect` **only runs once** (on mount).
+- The **closure captures `exercises = 9` initially**.
+- Even when `exercises` changes, `useEffect` **still uses the old value**.
+
+---
+
+## **3️⃣ Stale Closure: Why It Happens?**
+
+A **stale closure** happens when a function **captures old variables** and does not get the latest values when it runs.
+
+### **🔹 Conceptual Diagram**
+
+```
+Initial Render:
+  exercises = 9  (Captured in closure)
+  useEffect → Runs → Sets title: "Your 9 exercise workout"
+
+User clicks "Add Exercise":
+  exercises = 10
+  useEffect does NOT run again
+  Title remains: "Your 9 exercise workout"
+```
+
+### **🔹 Solution: Add Dependencies**
+
+To ensure `useEffect` always gets the latest value, we must specify dependencies.
+
+```jsx
+useEffect(() => {
+  console.log('Effect running...');
+  document.title = `Your ${exercises} exercise workout`;
+}, [exercises]); // ✅ Effect re-runs when `exercises` changes
+```
+
+Now, every time `exercises` updates, `useEffect` **reruns with the latest state**.
+
+---
+
+## **4️⃣ Avoiding Stale Closures**
+
+### **✅ Best Practices**
+
+1️⃣ **Always list state & props that are used inside `useEffect` in the dependency array.**
+
+```jsx
+useEffect(() => {
+  console.log(duration, sets, exercises); // Capturing latest state
+}, [duration, sets, exercises]);
+```
+
+2️⃣ **Use functional updates when modifying state to get the latest value.**
+
+```jsx
+setExercises((prevExercises) => prevExercises + 1);
+```
+
+- This ensures React **always** uses the most recent state.
+
+3️⃣ **Use `useRef` to persist values across renders without triggering effects.**
+
+```jsx
+const prevExercises = useRef(exercises);
+useEffect(() => {
+  prevExercises.current = exercises;
+}, [exercises]);
+```
+
+---
+
+## **5️⃣ Final Example: Avoiding Stale Closures**
+
+```jsx
+import { useState, useEffect } from 'react';
+
+function WorkoutApp() {
+  const [exercises, setExercises] = useState(9);
+  const [duration, setDuration] = useState(30);
+
+  useEffect(() => {
+    document.title = `Your ${exercises} exercise workout (Duration: ${duration} mins)`;
+  }, [exercises, duration]); // ✅ Correct dependency array
+
+  return (
+    <div>
+      <p>Exercises: {exercises}</p>
+      <button onClick={() => setExercises((ex) => ex + 1)}>Add Exercise</button>
+
+      <p>Duration: {duration} mins</p>
+      <button onClick={() => setDuration((d) => d + 5)}>
+        Increase Duration
+      </button>
+    </div>
+  );
+}
+
+export default WorkoutApp;
+```
+
+### **✅ Behavior**
+
+- Clicking **"Add Exercise"** updates both **state & document title**.
+- Clicking **"Increase Duration"** also updates correctly.
+- No stale closure issues! 🚀
+
+---
+
+## **6️⃣ Key Takeaways**
+
+✅ **Closures capture variables from their creation time** (old values).  
+✅ **React’s `useEffect` depends on closures** → It may use outdated values.  
+✅ **To prevent stale closures, always list dependencies inside `useEffect`.**  
+✅ **Use functional updates (`prevState`) for state changes.**  
+✅ **Use `useRef` for values that should persist without re-renders.**
+
+---
+
+### **🎯 Quick Recap**
+
+| Concept                           | Issue                             | Solution                          |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| **Closure**                       | Remembers old variables           | Refresh with correct dependencies |
+| **Stale Closure**                 | Uses outdated state               | Add dependencies to `useEffect`   |
+| **Empty Dependency Array (`[]`)** | Effect runs **only once**         | Add all necessary dependencies    |
+| **State Updates**                 | `useEffect` doesn't see new state | Use functional updates            |
+
+---
+
+### **💡 Summary**
+
+Closures are a powerful concept in JavaScript, but they can lead to **stale closures in `useEffect`**. To avoid issues:
+
+- **Always add the correct dependencies in `useEffect`.**
+- **Use functional state updates (`prevState`).**
+- **Consider `useRef` for persisting values across renders.**
+
+Now you're equipped to **avoid stale closures in React like a pro!** 🚀

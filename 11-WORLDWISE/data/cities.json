@@ -13,30 +13,6 @@
       "id": 73930385
     },
     {
-      "cityName": "Madrid",
-      "country": "Spain",
-      "emoji": "🇪🇸",
-      "date": "2027-07-15T08:22:53.976Z",
-      "notes": "",
-      "position": {
-        "lat": 40.46635901755316,
-        "lng": -3.7133789062500004
-      },
-      "id": 17806751
-    },
-    {
-      "cityName": "Berlin",
-      "country": "Germany",
-      "emoji": "🇩🇪",
-      "date": "2027-02-12T09:24:11.863Z",
-      "notes": "Amazing 😃",
-      "position": {
-        "lat": 52.53586782505711,
-        "lng": 13.376933665713324
-      },
-      "id": 98443197
-    },
-    {
       "cityName": "Frankfurt",
       "country": "Germany",
       "emoji": "🇩🇪",
@@ -59,6 +35,54 @@
         "lng": 80.237617
       },
       "id": 994222313
+    },
+    {
+      "cityName": "Walton",
+      "country": "GB",
+      "emoji": "🇬🇧",
+      "date": "2024-09-11T02:11:37.442Z",
+      "notes": "",
+      "position": {
+        "lat": "51.09926644199459",
+        "lng": "-2.769612531225397"
+      },
+      "id": 994222314
+    },
+    {
+      "cityName": "Jokkmokk",
+      "country": "SE",
+      "emoji": "🇸🇪",
+      "date": "2024-09-13T01:40:25.443Z",
+      "notes": "",
+      "position": {
+        "lat": "66.12783931450413",
+        "lng": "19.526794798228856"
+      },
+      "id": 994222334
+    },
+    {
+      "cityName": "Rana",
+      "country": "NO",
+      "emoji": "🇳🇴",
+      "date": "2024-09-13T01:40:38.336Z",
+      "notes": "",
+      "position": {
+        "lat": "66.22330707156095",
+        "lng": "13.976894192784213"
+      },
+      "id": 994222335
+    },
+    {
+      "cityName": "Bagnall",
+      "country": "GB",
+      "emoji": "🇬🇧",
+      "date": "2025-02-07T01:17:04.307Z",
+      "notes": "",
+      "position": {
+        "lat": "53.05264292262848",
+        "lng": "-2.1105867457990217"
+      },
+      "id": 994222336
     }
   ]
 }

@@ -1,5 +1,5 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { faker } from "@faker-js/faker";
+import { createContext, useContext, useEffect, useState, useMemo } from 'react';
+import { faker } from '@faker-js/faker';
 
 function createRandomPost() {
   return {
@@ -15,7 +15,7 @@ function App() {
   const [posts, setPosts] = useState(() =>
     Array.from({ length: 30 }, () => createRandomPost())
   );
-  const [searchQuery, setSearchQuery] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
   const [isFakeDark, setIsFakeDark] = useState(false);
 
   // Derived state. These are the posts that will actually be displayed
@@ -39,28 +39,32 @@ function App() {
   // Whenever `isFakeDark` changes, we toggle the `fake-dark-mode` class on the HTML element (see in "Elements" dev tool).
   useEffect(
     function () {
-      document.documentElement.classList.toggle("fake-dark-mode");
+      document.documentElement.classList.toggle('fake-dark-mode');
     },
     [isFakeDark]
   );
 
+  const value = useMemo(() => {
+    return {
+      posts: searchedPosts,
+      onAddPost: handleAddPost,
+      onClearPosts: handleClearPosts,
+      searchQuery,
+      setSearchQuery,
+    };
+  }, [searchQuery, searchedPosts]);
+
   return (
     <PostContext.Provider
       // 2 PROVIDE VALUE TO CHILDREN COMPONENT
-      value={{
-        posts: searchedPosts,
-        onAddPost: handleAddPost,
-        onClearPosts: handleClearPosts,
-        searchQuery,
-        setSearchQuery,
-      }}
+      value={value}
     >
       <section>
         <button
           onClick={() => setIsFakeDark((isFakeDark) => !isFakeDark)}
-          className="btn-fake-dark-mode"
+          className='btn-fake-dark-mode'
         >
-          {isFakeDark ? "☀️" : "🌙"}
+          {isFakeDark ? '☀️' : '🌙'}
         </button>
 
         <Header />
@@ -95,7 +99,7 @@ function SearchPosts() {
     <input
       value={searchQuery}
       onChange={(e) => setSearchQuery(e.target.value)}
-      placeholder="Search posts..."
+      placeholder='Search posts...'
     />
   );
 }
@@ -124,15 +128,15 @@ function Posts() {
 
 function FormAddPost() {
   const { onAddPost } = useContext(PostContext);
-  const [title, setTitle] = useState("");
-  const [body, setBody] = useState("");
+  const [title, setTitle] = useState('');
+  const [body, setBody] = useState('');
 
   const handleSubmit = function (e) {
     e.preventDefault();
     if (!body || !title) return;
     onAddPost({ title, body });
-    setTitle("");
-    setBody("");
+    setTitle('');
+    setBody('');
   };
 
   return (
@@ -140,12 +144,12 @@ function FormAddPost() {
       <input
         value={title}
         onChange={(e) => setTitle(e.target.value)}
-        placeholder="Post title"
+        placeholder='Post title'
       />
       <textarea
         value={body}
         onChange={(e) => setBody(e.target.value)}
-        placeholder="Post body"
+        placeholder='Post body'
       />
       <button>Add post</button>
     </form>
@@ -180,7 +184,7 @@ function Archive() {
     <aside>
       <h2>Post archive</h2>
       <button onClick={() => setShowArchive((s) => !s)}>
-        {showArchive ? "Hide archive posts" : "Show archive posts"}
+        {showArchive ? 'Hide archive posts' : 'Show archive posts'}
       </button>
 
       {showArchive && (
