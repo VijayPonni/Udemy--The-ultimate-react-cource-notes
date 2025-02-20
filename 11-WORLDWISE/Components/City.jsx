@@ -1,16 +1,16 @@
-import { useParams } from "react-router-dom";
-import styles from "./City.module.css";
-import { useEffect } from "react";
-import Spinner from "./Spinner";
-import { useCities } from "../src/contexts/citiesContext";
-import BackButton from "./BackButton";
+import { useParams } from 'react-router-dom';
+import styles from './City.module.css';
+import { useEffect } from 'react';
+import Spinner from './Spinner';
+import { useCities } from '../src/contexts/citiesContext';
+import BackButton from './BackButton';
 
 const formatDate = (date) =>
-  new Intl.DateTimeFormat("en", {
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-    weekday: "long",
+  new Intl.DateTimeFormat('en', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+    weekday: 'long',
   }).format(new Date(date));
 
 function City() {
@@ -21,7 +21,7 @@ function City() {
     function () {
       fetchCurrentCity(id);
     },
-    [id]
+    [fetchCurrentCity, id]
   );
 
   const { emoji, cityName, date, notes } = currentCity;
@@ -53,8 +53,8 @@ function City() {
         <h6>Learn more</h6>
         <a
           href={`https://en.wikipedia.org/wiki/${cityName}`}
-          target="_blank"
-          rel="noreferrer"
+          target='_blank'
+          rel='noreferrer'
         >
           Check out {cityName} on Wikipedia &rarr;
         </a>
